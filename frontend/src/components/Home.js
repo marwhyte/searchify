@@ -5,19 +5,16 @@ const Home = (props) => {
   const [favorites, setFavorites] = useState([]);
   const [accessToken, setAccessToken] = useState("");
   useEffect(() => {
-    axios
-      .get("http://localhost:8888/auth/refresh_token")
-      .then((res) => console.log(res));
     let parsed = queryString.parse(window.location.search);
     let accessToken = parsed.code;
 
-    // fetch("https://api.spotify.com/v1/me", {
-    //   headers: {
-    //     Authorization: "Bearer " + accessToken,
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data));
+    fetch("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
     // localStorage.setItem("accessToken", accessToken.code);
     // setAccessToken(accessToken.code);
   }, []);

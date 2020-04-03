@@ -4,16 +4,19 @@ let querystring = require("querystring");
 
 let app = express();
 
-let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback";
+var redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback";
+var client_id = "b3429ef53c71478dbacb09dc873dab29";
+var client_secret = "3aec05d69dde4229a70a82fba77589de";
+var scope = "user-read-private user-read-email";
 
 app.get("/login", function (req, res) {
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
         response_type: "code",
-        client_id: process.env.SPOTIFY_CLIENT_ID,
-        scope: "user-read-private user-read-email",
-        redirect_uri,
+        client_id: client_id,
+        scope: scope,
+        redirect_uri: redirect_uri,
       })
   );
 });
@@ -30,11 +33,7 @@ app.get("/callback", function (req, res) {
     headers: {
       Authorization:
         "Basic " +
-        new Buffer(
-          process.env.SPOTIFY_CLIENT_ID +
-            ":" +
-            process.env.SPOTIFY_CLIENT_SECRET
-        ).toString("base64"),
+        new Buffer(client_id + ":" + client_secret).toString("base64"),
     },
     json: true,
   };
