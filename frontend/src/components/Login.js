@@ -29,16 +29,6 @@ const Display = styled.div`
 `;
 
 export default function Register(props) {
-  function login() {
-    axios
-      .get("http://localhost:8888/auth/login")
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log("cant login!", err);
-      });
-  }
   return (
     <WholeForm>
       <h1>Welcome to Spotify Song Suggester!</h1>

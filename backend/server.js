@@ -1,31 +1,48 @@
-var request = require("request"); // "Request" library
-var cors = require("cors");
-var querystring = require("querystring");
-var cookieParser = require("cookie-parser");
+let express = require("express");
+let request = require("request");
+let querystring = require("querystring");
 
-const express = require("express");
-const authRouter = require("./auth/authRouter");
+let app = express();
 
-const server = express();
+let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback";
 
-const corsOptions = {
-  origin: [
-    "https://didioverpay.com",
-    "http://localhost:3000/",
-    "http://localhost:8888"
-  ],
-  credentials: true,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,ETag"
-};
-
-server.use(cors());
-server.use(express.json());
-server.use(express.static(__dirname + "/public"));
-
-server.use(cookieParser());
-server.use("/auth", authRouter);
-server.get("/", (req, res) => {
-  res.send(`<h2>Spotify suggester API</h2>`);
+app.get("/login", function (req, res) {
+  res.redirect(
+    "https://accounts.spotify.com/authorize?" +
+      querystring.stringify({
+        response_type: "code",
+        client_id: process.env.SPOTIFY_CLIENT_ID,
+        scope: "user-read-private user-read-email",
+        redirect_uri,
+      })
+  );
 });
 
-module.exports = server;
+app.get("/callback", function (req, res) {
+  let code = req.query.code || null;
+  let authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    form: {
+      code: code,
+      redirect_uri,
+      grant_type: "authorization_code",
+    },
+    headers: {
+      Authorization:
+        "Basic " +
+        new Buffer(
+          process.env.SPOTIFY_CLIENT_ID +
+            ":" +
+            process.env.SPOTIFY_CLIENT_SECRET
+        ).toString("base64"),
+    },
+    json: true,
+  };
+  request.post(authOptions, function (error, response, body) {
+    var access_token = body.access_token;
+    let uri = process.env.FRONTEND_URI || "http://localhost:3000";
+    res.redirect(uri + "?access_token=" + access_token);
+  });
+});
+
+module.exports = app;
