@@ -33,7 +33,7 @@ export default function Register(props) {
     <WholeForm>
       <h1>Welcome to Spotify Song Suggester!</h1>
       <Display>
-        <a href="http://localhost:8888/auth/login">Login</a>
+        <a href="https://myspotifybackendserver.herokuapp.com/login">Login</a>
       </Display>
     </WholeForm>
   );
