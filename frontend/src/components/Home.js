@@ -5,8 +5,8 @@ const Home = (props) => {
   const [favorites, setFavorites] = useState([]);
   const [accessToken, setAccessToken] = useState("");
   useEffect(() => {
-    let parsed = queryString.parse(window.location.search);
-    let accessToken = parsed.code;
+    var parsed = queryString.parse(window.location.search);
+    var accessToken = parsed.code;
 
     fetch("https://api.spotify.com/v1/me", {
       headers: {
