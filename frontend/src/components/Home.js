@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import queryString from "query-string";
+import { Link } from "react-router-dom";
+
 const Home = (props) => {
   const [favorites, setFavorites] = useState([]);
   const [topTracks, setTopTracks] = useState();
@@ -48,13 +50,25 @@ const Home = (props) => {
           <p>User has no playlists </p>
         ) : (
           userData.playlists.map((playlist) => (
-            <div>
+            <div className="playlist">
               <h3>{playlist.name}</h3>
               <img
                 className="playlistImage"
                 src={playlist.images[0].url}
                 alt="playlist"
               />
+              <Link
+                to={{
+                  pathname: "/playlist",
+                  search: props.location.search,
+                  playlistInfo: playlist,
+                }}
+              >
+                View this playlist
+              </Link>
+              <a href={playlist.external_urls.spotify} target="_blank">
+                Open In Spotify!
+              </a>
             </div>
           ))
         )}
@@ -74,6 +88,9 @@ const Home = (props) => {
           })
         )}
       </div>
+      <Link to={{ pathname: "/", search: props.location.search }}>
+        Go to login
+      </Link>
     </div>
   );
 };
