@@ -4,7 +4,6 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 
 const Home = (props) => {
-  const [favorites, setFavorites] = useState([]);
   const [topTracks, setTopTracks] = useState();
   const [userData, setUserData] = useState({ name: "", playlists: [] });
   const [searchQuery, setSearchQuery] = useState("No songs");
@@ -23,7 +22,7 @@ const Home = (props) => {
         setUserData({ name: data.display_name });
       });
 
-    fetch("https://api.spotify.com/v1/me/playlists?limit=4", {
+    fetch("https://api.spotify.com/v1/me/playlists?limit=6", {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -65,9 +64,12 @@ const Home = (props) => {
   console.log(searchQuery);
   return (
     <div className="home">
-      <h1>Welcome To your personalized spotify account {userData.name}</h1>
-
       <div className="search">
+        <div className="right">
+          <h2>Welcome {userData.name}</h2>
+        </div>
+        <h1>Your Spotify Companion</h1>
+
         <form>
           <input
             type="text"
@@ -77,52 +79,67 @@ const Home = (props) => {
             onChange={searching}
           />
         </form>
+        <div className="searchItems">
+          {searchQuery === "No songs" ? (
+            <div></div>
+          ) : (
+            <div>
+              {searchQuery.map((song) => (
+                <Link
+                  to={{
+                    pathname: "/search",
+                    search: props.location.search,
+                    searchInfo: song,
+                  }}
+                  className="link"
+                >
+                  <p>
+                    {song.name} by {song.artists[0].name}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="yourMusic">
-        <h2>Your top Playlists!</h2>
+        <h1>Your top Playlists!</h1>
         <div className="playlists">
           {!userData.playlists ? (
             <p>User has no playlists </p>
           ) : (
             userData.playlists.map((playlist) => (
               <div className="playlist">
-                <h3>{playlist.name}</h3>
+                <h2>{playlist.name}</h2>
                 <img
                   className="playlistImage"
                   src={playlist.images[0].url}
                   alt="playlist"
                 />
-                <Link
-                  to={{
-                    pathname: "/playlist",
-                    search: props.location.search,
-                    playlistInfo: playlist,
-                  }}
-                >
-                  View this playlist
-                </Link>
-                <a href={playlist.external_urls.spotify} target="_blank">
-                  Open In Spotify!
-                </a>
+                <div className="playlistLinks">
+                  <Link
+                    to={{
+                      pathname: "/playlist",
+                      search: props.location.search,
+                      playlistInfo: playlist,
+                    }}
+                    className="playlistURL"
+                  >
+                    View this playlist
+                  </Link>
+                  <a
+                    href={playlist.external_urls.spotify}
+                    className="playlistURL"
+                    target="_blank"
+                  >
+                    Open In Spotify!
+                  </a>
+                </div>
               </div>
             ))
           )}
         </div>
-        <div className="favorites">
-          <h2>Your Favorites!</h2>
-          {favorites.length === 0 ? (
-            <p>You Have no Favorites!</p>
-          ) : (
-            favorites.map((favorite) => {
-              return (
-                <div className="favSong">
-                  <p>{favorite.track_name}</p>
-                  <p>{favorite.artist_name}</p>
-                </div>
-              );
-            })
-          )}
-        </div>
+
         <Link to={{ pathname: "/", search: props.location.search }}>
           Go to login
         </Link>

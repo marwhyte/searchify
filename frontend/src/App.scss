@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
 .App {
   text-align: center;
   font-size: 62.5%;
+  font-family: "Lato", sans-serif;
 }
 
 /*login and register */
@@ -24,7 +27,6 @@
 /*Home Screen */
 
 .home {
-  background: linear-gradient(0deg, #1db954, #191414);
   margin: 0;
   padding: 0;
   display: flex;
@@ -35,15 +37,85 @@
 
 //search
 .search {
-  margin-bottom: 10%;
+  background: linear-gradient(90deg, #a8ff78, #78ffd6);
+
+  padding-bottom: 10%;
+  width: 100%;
+  input {
+    margin-bottom: 1%;
+    border: none;
+    padding: 1%;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    width: 300px;
+    outline-width: 0;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: #00203f;
+  }
+  p {
+    color: #00203f;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  .right {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2%;
+    margin-top: 0.3%;
+  }
 }
 
+.searchItem {
+  color: white;
+
+  text-decoration: none;
+  width: 15%;
+  margin: 0 auto;
+  border-radius: 15px;
+}
+.searchItem:hover {
+  background-color: #191414;
+}
+.link {
+  font-size: 1rem;
+  padding: 3%;
+  text-decoration: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+
+  p {
+    margin: 0 auto;
+    padding: 0.5%;
+    border-radius: 15px;
+    white-space: nowrap;
+    width: 30%;
+  }
+  p:hover {
+    background-color: #00203f;
+    color: white;
+  }
+}
+
+//your music
+.yourMusic {
+  margin-top: 2%;
+  width: 1600px;
+  h1 {
+    font-size: 2rem;
+  }
+}
 //Playlists
 .playlists {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 80%;
+  width: 100%;
   flex-wrap: wrap;
   .playlistImage {
     width: 40%;
@@ -53,11 +125,34 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background-color: white;
+    background: #00203f;
     border-radius: 15px;
-    color: #1db954;
-    width: 15%;
+    color: white;
+    width: 400px;
     padding-bottom: 1%;
+    margin: 1% 1%;
+  }
+  .playlistLinks {
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .playlistURL {
+    background-color: white;
+    border: 1px solid white;
+    color: #6b6b83;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 2%;
+    border-radius: 15px;
+    white-space: nowrap;
+    overflow: visible;
+    padding: 2% 5%;
+  }
+  .playlistURL:hover {
+    background: linear-gradient(90deg, #a8ff78, #78ffd6);
+    color: black;
   }
 }
 
@@ -67,6 +162,21 @@
   p {
     font-size: 0.8rem;
   }
+}
+.fontawesome {
+  margin-left: 1%;
+  margin-top: 1%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  position: sticky;
+}
+.goBack {
+  color: #1db954;
+  position: fixed;
+  background-color: white;
+  border-radius: 15px;
+  cursor: pointer;
 }
 .playlistsongs {
   display: flex;
@@ -79,6 +189,7 @@
     display: flex;
     justify-content: space-evenly;
     border-bottom: 1px solid #e1e1e6;
+    cursor: pointer;
   }
   .playlistsong:hover {
     background-color: #1db954;

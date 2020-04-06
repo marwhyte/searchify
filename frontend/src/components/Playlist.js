@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Playlist = (props) => {
   const [playlist, setPlaylist] = useState({});
@@ -26,6 +28,15 @@ const Playlist = (props) => {
   console.log(songs);
   return (
     <div className="playlist">
+      <div className="fontawesome">
+        <FontAwesomeIcon
+          className="goBack"
+          icon={faArrowAltCircleLeft}
+          size="4x"
+          onClick={() => window.open(`/home${props.location.search}`, "_self")}
+        />
+      </div>
+
       {songs !== "noSongs" ? (
         <div className="playlisttop">
           <div>
@@ -52,7 +63,12 @@ const Playlist = (props) => {
       {songs !== "noSongs" ? (
         <div className="playlistsongs">
           {songs.map((song) => (
-            <div className="playlistsong">
+            <div
+              className="playlistsong"
+              onClick={() =>
+                window.open(song.track.external_urls.spotify, "_blank")
+              }
+            >
               <p className="song">{song.track.name}</p>
               <p className="artist">
                 {song.track.artists.map((e) => e.name).join(", ")}
