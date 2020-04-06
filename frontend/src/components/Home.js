@@ -9,7 +9,6 @@ const Home = (props) => {
   const [searchQuery, setSearchQuery] = useState("No songs");
   useEffect(() => {
     var parsed = queryString.parse(window.location.search);
-    console.log(parsed);
     var accessToken = parsed.access_token;
 
     fetch("https://api.spotify.com/v1/me", {
@@ -19,7 +18,7 @@ const Home = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setUserData({ name: data.display_name });
+        setUserData({ name: data.display_name, id: data.id });
       });
 
     fetch("https://api.spotify.com/v1/me/playlists?limit=6", {
@@ -37,7 +36,6 @@ const Home = (props) => {
         });
       });
   }, []);
-
   const searching = (event) => {
     const search = event.target.value;
     var parsed = queryString.parse(window.location.search);
@@ -61,14 +59,15 @@ const Home = (props) => {
     }
   };
 
-  console.log(searchQuery);
   return (
     <div className="home">
       <div className="search">
         <div className="right">
           <h2>Welcome {userData.name}</h2>
+          <a href="/">Logout</a>
         </div>
-        <h1>Your Spotify Companion</h1>
+        <h1>Find music for you</h1>
+        <h3>Search by artist or song to find a playlist tailored to you!</h3>
 
         <form>
           <input
@@ -83,19 +82,18 @@ const Home = (props) => {
           {searchQuery === "No songs" ? (
             <div></div>
           ) : (
-            <div>
+            <div className="searchFlex">
               {searchQuery.map((song) => (
                 <Link
                   to={{
                     pathname: "/search",
                     search: props.location.search,
                     searchInfo: song,
+                    userData: userData,
                   }}
                   className="link"
                 >
-                  <p>
-                    {song.name} by {song.artists[0].name}
-                  </p>
+                  {song.name} by {song.artists[0].name}
                 </Link>
               ))}
             </div>
@@ -139,10 +137,6 @@ const Home = (props) => {
             ))
           )}
         </div>
-
-        <Link to={{ pathname: "/", search: props.location.search }}>
-          Go to login
-        </Link>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const Playlist = (props) => {
         });
     }
   }, []);
-  console.log(songs);
+  console.log(playlist);
   return (
     <div className="playlist">
       <div className="fontawesome">
@@ -43,6 +43,13 @@ const Playlist = (props) => {
             <h1> Welcome to: {playlist.name}</h1>
             <p>Created by: {playlist.owner.id}</p>
             <p>Total Songs: {playlist.tracks.total}</p>
+            <a
+              href={playlist.external_urls.spotify}
+              className="playlistURL1"
+              target="_blank"
+            >
+              Open In Spotify!
+            </a>
           </div>
           <div className="noMargin">
             <img
@@ -58,7 +65,7 @@ const Playlist = (props) => {
       <div className="playlistheaders">
         <p className="playlistheader">Song Title</p>
         <p className="playlistheader">Song Artist</p>
-        <p className="playlistheader">Album</p>
+        <p className="playlistheader1">Album</p>
       </div>
       {songs !== "noSongs" ? (
         <div className="playlistsongs">
@@ -73,7 +80,7 @@ const Playlist = (props) => {
               <p className="artist">
                 {song.track.artists.map((e) => e.name).join(", ")}
               </p>
-              <p className="artist">{song.track.album.name}</p>
+              <p className="artist1">{song.track.album.name}</p>
             </div>
           ))}
         </div>

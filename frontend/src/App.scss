@@ -1,9 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import "~pretty-checkbox/src/pretty-checkbox.scss";
 
 .App {
   text-align: center;
   font-size: 62.5%;
   font-family: "Lato", sans-serif;
+  box-sizing: border-box;
 }
 
 /*login and register */
@@ -54,6 +56,7 @@
   h1 {
     font-size: 2.5rem;
     color: #00203f;
+    margin: 0;
   }
   p {
     color: #00203f;
@@ -61,11 +64,24 @@
   h2 {
     font-size: 1.2rem;
   }
+  h3 {
+    font-size: 1rem;
+  }
   .right {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     margin-right: 2%;
     margin-top: 0.3%;
+    a {
+      margin-left: 1%;
+      font-size: 1rem;
+      text-decoration: none;
+      color: black;
+    }
+    a:hover {
+      color: white;
+    }
   }
 }
 
@@ -82,24 +98,21 @@
 }
 .link {
   font-size: 1rem;
-  padding: 3%;
   text-decoration: none;
-  color: white;
-  margin: 0;
-  padding: 0;
+  color: #00203f;
+  padding: 1%;
   cursor: pointer;
-
-  p {
-    margin: 0 auto;
-    padding: 0.5%;
-    border-radius: 15px;
-    white-space: nowrap;
-    width: 30%;
-  }
-  p:hover {
-    background-color: #00203f;
-    color: white;
-  }
+  width: 300px;
+  margin: 0 auto;
+  border-radius: 15px;
+}
+.link:hover {
+  background-color: #00203f;
+  color: white;
+}
+.searchFlex {
+  display: flex;
+  flex-direction: column;
 }
 
 //your music
@@ -117,6 +130,9 @@
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
+  h2 {
+    font-size: 1.2rem;
+  }
   .playlistImage {
     width: 40%;
   }
@@ -141,7 +157,7 @@
   .playlistURL {
     background-color: white;
     border: 1px solid white;
-    color: #6b6b83;
+    color: #00203f;
     text-decoration: none;
     font-size: 1rem;
     padding: 2%;
@@ -160,7 +176,7 @@
 
 .playlist {
   p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 .fontawesome {
@@ -184,27 +200,35 @@
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  .playlistsong {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    border-bottom: 1px solid #e1e1e6;
-    cursor: pointer;
+  p {
+    font-size: 0.9rem;
   }
-  .playlistsong:hover {
-    background-color: #1db954;
-    color: white;
-  }
-  .song {
-    width: 20%;
+}
+.playlistsong {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #e1e1e6;
+  cursor: pointer;
+}
+.playlistsong:hover {
+  background: linear-gradient(90deg, #a8ff78, #78ffd6);
+  color: black;
+}
+.song {
+  width: 25%;
 
-    white-space: nowrap;
-  }
-  .artist {
-    width: 20%;
+  white-space: nowrap;
+}
+.artist {
+  width: 25%;
 
-    white-space: nowrap;
-  }
+  white-space: nowrap;
+}
+.artist1 {
+  width: 25%;
+
+  white-space: nowrap;
 }
 
 .playlistheaders {
@@ -217,7 +241,14 @@
   border-bottom: 1px solid #e1e1e6;
   color: #a9a9a9;
   .playlistheader {
-    width: 20%;
+    width: 25%;
+  }
+  .playlistheader1 {
+    width: 25%;
+  }
+
+  p {
+    font-size: 0.9rem;
   }
 }
 .playlisttop {
@@ -226,13 +257,183 @@
   align-items: center;
   margin: 0;
   padding: 0;
+  white-space: normal !important;
+  margin-bottom: 2%;
+  p {
+    font-size: 1rem;
+  }
+  .playlistName {
+    margin-bottom: 1%;
+    border: 1px solid black;
+    padding: 3%;
+    border-radius: 15px;
+    font-size: 1rem;
+    width: 280px;
+    outline-width: 0;
+  }
 
+  label {
+    font-size: 1rem;
+  }
   .noMargin {
     display: inline-block;
-    width: 5%;
+    width: 20%;
   }
   img {
     width: 100%;
-    padding-left: 30%;
+    margin-left: 30%;
+  }
+  .createInfo {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .playlistButton {
+    background: linear-gradient(90deg, #a8ff78, #78ffd6);
+    border: 1px solid white;
+    color: #00203f;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 2%;
+    border-radius: 15px;
+    white-space: nowrap;
+    overflow: visible;
+    padding: 2% 5%;
+    width: 300px;
+    cursor: pointer;
+  }
+  .playlistButton:hover {
+    background: #00203f;
+    color: white;
+  }
+}
+.playlistURL1 {
+  background: linear-gradient(90deg, #a8ff78, #78ffd6);
+  border: 1px solid white;
+  color: #00203f;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 2%;
+  border-radius: 15px;
+  white-space: nowrap;
+  overflow: visible;
+  padding: 2% 5%;
+}
+.playlistURL1:hover {
+  background: #00203f;
+  color: white;
+}
+
+//search songs
+.savePlaylist {
+  display: flex;
+  flex-direction: column;
+}
+.pretty {
+  width: 20%;
+  font-size: 0.7rem;
+  margin: 5% auto;
+}
+//footer
+
+.footer {
+  border-top: 1px solid #a9a9a9;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  p {
+    font-size: 1rem;
+    margin-left: 10%;
+    white-space: nowrap;
+  }
+  .footertogether {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+.spotifylogo1 {
+  width: 150px;
+  cursor: pointer;
+  padding: 75px;
+}
+.spotifylogo {
+  width: 100%;
+}
+
+//media queries
+
+@media (max-width: 1600px) {
+  .home {
+    width: 100%;
+  }
+  .search {
+    width: 100%;
+  }
+  .yourMusic {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .playlistsongs {
+    p {
+      font-size: 0.8rem;
+      overflow: hidden;
+    }
+  }
+}
+@media (max-width: 1023px) {
+  .createInfo {
+    width: 90% !important;
+    h1 {
+      width: 90% !important;
+    }
+  }
+  .noMargin {
+    width: 35% !important;
+    img {
+      margin: 0;
+      margin-top: 10%;
+    }
+  }
+  .playlisttop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .artist1 {
+    display: none !important;
+  }
+  .song {
+    width: 45%;
+  }
+  .artist {
+    width: 45%;
+  }
+  .playlistheader {
+    width: 45% !important;
+  }
+  .playlistheader1 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .right {
+    justify-content: space-around !important;
+  }
+  .footer p {
+    font-size: 0.7rem;
+  }
+  .spotifylogo1 {
+    width: 100px;
+    padding: 50px;
   }
 }
