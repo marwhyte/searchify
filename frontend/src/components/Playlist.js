@@ -3,6 +3,7 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import Footer from "./Footer";
 
 const Playlist = (props) => {
   const [playlist, setPlaylist] = useState({});
@@ -95,6 +96,7 @@ const Playlist = (props) => {
           </Link>
         </div>
       )}
+      <Footer />
     </div>
   );
 };

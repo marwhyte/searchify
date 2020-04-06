@@ -1,40 +1,47 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
-const WholeForm = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(-45deg, red, purple, #ff0040, #550a8a);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-`;
-const Display = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid black;
-  width: 600px;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 42px 55px 45px 55px;
-  margin-bottom: 10%;
-`;
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import spotifylogo from "../images/spotifylogo.png";
 
 export default function Register(props) {
   return (
-    <WholeForm>
-      <h1>Welcome to Spotify Song Suggester!</h1>
-      <Display>
-        <a href="https://myspotifybackendserver.herokuapp.com/login">Login</a>
-      </Display>
-    </WholeForm>
+    <div className="login">
+      <div className="wholeForm">
+        <h1>Welcome to your Music Companion!</h1>
+        <a
+          href="https://myspotifybackendserver.herokuapp.com/login"
+          className="loginButton"
+        >
+          Login
+        </a>
+      </div>
+      <div className="loginFooter">
+        <div className="footer">
+          <div
+            className="footertogether"
+            onClick={() =>
+              window.open(
+                "https://github.com/marwhyte/spotifysuggester",
+                "_blank"
+              )
+            }
+          >
+            <FontAwesomeIcon className="rotate" icon={faGithub} size="2x" />
+            <p>Created By Marco Whyte</p>
+          </div>
+
+          <div className="spotifylogo1">
+            <img
+              onClick={() => window.open("https://spotify.com", "_blank")}
+              className="spotifylogo"
+              alt="spotify logo"
+              src={spotifylogo}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

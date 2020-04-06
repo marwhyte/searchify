@@ -4,6 +4,7 @@ import queryString from "query-string";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
+import Footer from "./Footer";
 
 const Search = (props) => {
   const { register, handleSubmit, errors } = useForm();
@@ -137,6 +138,7 @@ const Search = (props) => {
           </Link>
         </div>
       )}
+      <Footer />
     </div>
   );
 };

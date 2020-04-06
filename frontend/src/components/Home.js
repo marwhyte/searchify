@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 const Home = (props) => {
   const [topTracks, setTopTracks] = useState();
@@ -138,6 +139,7 @@ const Home = (props) => {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

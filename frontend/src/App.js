@@ -18,7 +18,6 @@ function App() {
           <Route path="/playlist" component={Playlist} />
           <Route path="/search" component={Search} />
         </Switch>
-        <Footer />
       </div>
     </Router>
   );
