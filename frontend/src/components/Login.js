@@ -11,7 +11,7 @@ export default function Register(props) {
       <div className="wholeForm">
         <h1>Welcome to your Music Companion!</h1>
         <a
-          href="https://myspotifybackendserver.herokuapp.com/login"
+          href="https://myspotifybackendserver.herokuapp.com/auth/login"
           className="loginButton"
         >
           Login
