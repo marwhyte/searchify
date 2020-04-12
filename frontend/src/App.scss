@@ -37,14 +37,15 @@
   background-color: #00203f;
   border-radius: 15px;
   padding: 1% 5%;
-  width: 100px;
+  width: 90px;
   font-size: 1rem;
   text-decoration: none;
   border: 1px solid #00203f;
+  transition: background-color 1s ease;
+  border: 1px solid #00203f;
 }
 .loginButton:hover {
-  background-color: white;
-  color: #00203f;
+  background-color: #35699c;
 }
 .loginFooter {
   height: 22vh;
@@ -81,11 +82,6 @@
     outline-width: 0;
   }
 
-  h1 {
-    font-size: 2.5rem;
-    color: #00203f;
-    margin: 0;
-  }
   p {
     color: #00203f;
   }
@@ -151,6 +147,31 @@
     font-size: 2rem;
   }
 }
+.selected {
+  border: none;
+  background-color: #ffcccb;
+  border-radius: 15px;
+  padding: 1% 2%;
+  cursor: pointer;
+  margin: 1%;
+  outline: 0;
+}
+.selected:hover {
+  background-color: #fa6664;
+}
+
+.notSelected {
+  border: none;
+  background-color: #78ffd6;
+  border-radius: 15px;
+  padding: 1% 2%;
+  cursor: pointer;
+  margin: 1%;
+  outline: 0;
+}
+.notSelected:hover {
+  background-color: #39d3a5;
+}
 //Playlists
 .playlists {
   display: flex;
@@ -182,21 +203,54 @@
     display: flex;
     justify-content: space-evenly;
   }
-  .playlistURL {
-    background-color: white;
-    border: 1px solid white;
+}
+
+//tracks
+
+.yourSongs {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+
+  .yourSong {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 15px;
     color: #00203f;
+    width: 270px;
+    padding-bottom: 1%;
+    margin: 1% 1%;
+    border: 1px solid #e1e1e6;
+    padding-top: 0.5%;
+  }
+  .yourSong:hover {
+    border: 1px solid #78ffd6;
+  }
+  .trackImage {
+    width: 70%;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+  .trackURL {
+    background-color: #00203f;
+    border: 1px solid white;
+    color: #e1e1e6;
     text-decoration: none;
     font-size: 1rem;
     padding: 2%;
     border-radius: 15px;
-    white-space: nowrap;
-    overflow: visible;
+    width: 50%;
     padding: 2% 5%;
+    transition: background-color 1s ease;
   }
-  .playlistURL:hover {
-    background: linear-gradient(90deg, #a8ff78, #78ffd6);
-    color: black;
+  .trackURL:hover {
+    border: 1px solid #78ffd6;
+    background-color: #0155aa;
   }
 }
 
@@ -310,6 +364,7 @@
   img {
     width: 100%;
     margin-left: 30%;
+    cursor: pointer;
   }
   .createInfo {
     width: 20%;
@@ -330,6 +385,7 @@
     padding: 2% 5%;
     width: 300px;
     cursor: pointer;
+    transition: background-color 1s ease;
   }
   .playlistButton:hover {
     background: #00203f;
@@ -346,11 +402,34 @@
   border-radius: 15px;
   white-space: nowrap;
   overflow: visible;
-  padding: 2% 5%;
+  padding: 4% 10%;
+  transition: background-color 1s ease;
+  transition: color 1s ease;
 }
 .playlistURL1:hover {
   background: #00203f;
   color: white;
+}
+.playlistURL {
+  background-color: white;
+  border: 1px solid white;
+  color: #00203f;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 2%;
+  border-radius: 15px;
+  width: 33%;
+  padding: 2% 5%;
+  transition: background-color 1s ease;
+  transition: color 1s ease;
+}
+.playlistURL:hover {
+  background: linear-gradient(90deg, #a8ff78, #78ffd6);
+  color: black;
+}
+
+.sweet-loading {
+  margin: 3%;
 }
 
 //search songs
@@ -362,6 +441,16 @@
   width: 20%;
   font-size: 0.7rem;
   margin: 5% auto;
+}
+.searchClick {
+  text-decoration: none;
+  font-size: 2.5rem;
+  color: #00203f;
+  margin: 0;
+  cursor: pointer;
+}
+.searchClick:hover {
+  color: #016dd8;
 }
 //footer
 

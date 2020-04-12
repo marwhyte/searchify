@@ -8,38 +8,65 @@ import Footer from "./Footer";
 
 const Search = (props) => {
   const { register, handleSubmit, errors } = useForm();
+  const [userID, setUserID] = useState("");
+  const [songData, setSongData] = useState("No songs");
+  const [initialSong, setInitialSong] = useState("No initial");
+
   const onSubmit = (data) => {
-    var data = {
-      name: data.playlist_title,
-      public: data.public,
-    };
     var parsed = queryString.parse(window.location.search);
     var accessToken = parsed.access_token;
-    var userID = props.location.userData.id;
-    console.log(data.public);
-    // fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-    //   method: "POST",
+    var dataObj = JSON.stringify({
+      name: data.playlist_title,
+      public: data.public,
+    });
 
-    //   headers: {
-    //     Authorization: "Bearer " + accessToken,
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
+    console.log(userID);
+    console.log(dataObj);
+    fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: dataObj,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
-  const [songData, setSongData] = useState("No songs");
-  const initialSong = useState(props.location.searchInfo);
   useEffect(() => {
     var parsed = queryString.parse(window.location.search);
     var accessToken = parsed.access_token;
+
+    fetch("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          return props.history.push("/");
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          setUserID(data.id);
+        }
+      });
+
     if (props.location.searchInfo !== undefined) {
+      localStorage.setItem("search", props.location.searchInfo.id);
+      localStorage.setItem("initialSong", props.location.searchInfo.id);
+      const searchData = localStorage.getItem("search");
+      const initialSongLocal = localStorage.getItem("initialSong");
+
       fetch(
-        `https://api.spotify.com/v1/recommendations?seed_tracks=${props.location.searchInfo.id}`,
+        `https://api.spotify.com/v1/recommendations?seed_tracks=${searchData}`,
         {
           headers: {
             Authorization: "Bearer " + accessToken,
@@ -48,12 +75,45 @@ const Search = (props) => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log("look", data);
           setSongData(data.tracks);
         });
+      fetch(`https://api.spotify.com/v1/tracks/${initialSongLocal}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setInitialSong(data);
+        });
     } else {
+      const searchData = localStorage.getItem("search");
+      fetch(
+        `https://api.spotify.com/v1/recommendations?seed_tracks=${searchData}`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setSongData(data.tracks);
+        });
+      const initialSongLocal = localStorage.getItem("initialSong");
+      fetch(`https://api.spotify.com/v1/tracks/${initialSongLocal}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setInitialSong(data);
+          console.log("look", initialSong);
+        });
     }
   }, []);
+  console.log(songData);
   return (
     <div className="Search">
       <div className="fontawesome">
@@ -64,10 +124,17 @@ const Search = (props) => {
           onClick={() => window.open(`/home${props.location.search}`, "_self")}
         />
       </div>
-      {songData !== "No songs" ? (
+      {songData !== "No songs" && initialSong !== "No initial" ? (
         <div className="playlisttop">
           <div className="createInfo">
-            <h1>Song suggestions for {initialSong[0].name}</h1>
+            <a
+              className="searchClick"
+              href={initialSong.external_urls.spotify}
+              alt="open the searched song in spotify"
+              target="_blank"
+            >
+              Song suggestions for {initialSong.name}
+            </a>
             <p>Save this playlist to your account</p>
             <form className="savePlaylist" onSubmit={handleSubmit(onSubmit)}>
               <input
@@ -97,8 +164,11 @@ const Search = (props) => {
           </div>
           <div className="noMargin">
             <img
-              src={initialSong[0].album.images[0].url}
-              alt="4 top songs in the playlist"
+              onClick={() =>
+                window.open(initialSong.external_urls.spotify, "_blank")
+              }
+              src={initialSong.album.images[0].url}
+              alt="Album cover for initial song search"
             />
           </div>
         </div>
@@ -115,9 +185,7 @@ const Search = (props) => {
           {songData.map((song) => (
             <div
               className="playlistsong"
-              onClick={() =>
-                window.open(song.track.external_urls.spotify, "_blank")
-              }
+              onClick={() => window.open(song.external_urls.spotify, "_blank")}
             >
               <p className="song">{song.name}</p>
               <p className="artist">
