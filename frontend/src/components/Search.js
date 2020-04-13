@@ -5,6 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import Footer from "./Footer";
+import { css } from "@emotion/core";
+import RingLoader from "react-spinners/RingLoader";
+import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import { store } from "react-notifications-component";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: blue;
+`;
 
 const Search = (props) => {
   const { register, handleSubmit, errors } = useForm();
@@ -13,15 +25,20 @@ const Search = (props) => {
   const [initialSong, setInitialSong] = useState("No initial");
 
   const onSubmit = (data) => {
+    console.log(data.playlist_title.length);
     var parsed = queryString.parse(window.location.search);
     var accessToken = parsed.access_token;
+    var title;
+    if (data.playlist_title.length === 0) {
+      title = "Your New Playlist";
+    } else {
+      title = data.playlist_title;
+    }
     var dataObj = JSON.stringify({
-      name: data.playlist_title,
+      name: title,
       public: data.public,
     });
 
-    console.log(userID);
-    console.log(dataObj);
     fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
       method: "POST",
       headers: {
@@ -33,10 +50,41 @@ const Search = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        addSongs(data.id);
+        store.addNotification({
+          title: "Success!",
+          message: "Your new playlist was added, open spotify to view it!",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true,
+          },
+        });
       });
   };
-
+  const addSongs = (playlistID) => {
+    var parsed = queryString.parse(window.location.search);
+    var accessToken = parsed.access_token;
+    var songIDS = JSON.stringify({
+      uris: songData.map((song) => {
+        return song.uri;
+      }),
+    });
+    fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: songIDS,
+    });
+  };
+  console.log(songData);
   useEffect(() => {
     var parsed = queryString.parse(window.location.search);
     var accessToken = parsed.access_token;
@@ -109,13 +157,12 @@ const Search = (props) => {
         .then((res) => res.json())
         .then((data) => {
           setInitialSong(data);
-          console.log("look", initialSong);
         });
     }
   }, []);
-  console.log(songData);
   return (
     <div className="Search">
+      <ReactNotification />
       <div className="fontawesome">
         <FontAwesomeIcon
           className="goBack"
@@ -142,19 +189,19 @@ const Search = (props) => {
                 type="text"
                 placeholder="Playlist Title"
                 name="playlist_title"
-                ref={register({ required: true })}
+                ref={register()}
               />
-              <div class="pretty p-default p-curve p-toggle">
+              <div className="pretty p-default p-curve p-toggle">
                 <input
                   type="checkbox"
                   placeholder="public"
                   name="public"
                   ref={register}
                 />
-                <div class="state p-success p-on">
+                <div className="state p-success p-on">
                   <label>Public</label>
                 </div>
-                <div class="state p-danger p-off">
+                <div className="state p-danger p-off">
                   <label>Private </label>
                 </div>
               </div>
@@ -183,27 +230,37 @@ const Search = (props) => {
       {songData !== "No songs" ? (
         <div className="playlistsongs">
           {songData.map((song) => (
-            <div
-              className="playlistsong"
-              onClick={() => window.open(song.external_urls.spotify, "_blank")}
-            >
-              <p className="song">{song.name}</p>
-              <p className="artist">
-                {song.artists.map((e) => e.name).join(", ")}
-              </p>
-              <p className="artist1">{song.album.name}</p>
+            <div className="playlistsong">
+              <div
+                className="song"
+                onClick={() =>
+                  window.open(song.external_urls.spotify, "_blank")
+                }
+              >
+                <p>{song.name}</p>
+              </div>
+              <div
+                className="artist"
+                onClick={() =>
+                  window.open(song.artists[0].external_urls.spotify, "_blank")
+                }
+              >
+                <p>{song.artists.map((e) => e.name).join(", ")}</p>
+              </div>
+              <div
+                className="artist1"
+                onClick={() =>
+                  window.open(song.album.external_urls.spotify, "_blank")
+                }
+              >
+                <p>{song.album.name}</p>
+              </div>
             </div>
           ))}
         </div>
       ) : (
-        <div>
-          <p>
-            You have no songs in this playlist or something went wrong, go back
-            home and try again!
-          </p>
-          <Link to={{ pathname: "/home", search: props.location.search }}>
-            Go Back Home!
-          </Link>
+        <div className="sweet-loading">
+          <RingLoader css={override} size={40} color={"#123abc"} />
         </div>
       )}
       <Footer />

@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Playlist from "./components/Playlist";
 import Search from "./components/Search";
+import Artist from "./components/Artist";
 import Footer from "./components/Footer";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/home" component={Home} />
           <Route path="/playlist" component={Playlist} />
           <Route path="/search" component={Search} />
+          <Route path="/artist" component={Artist} />
         </Switch>
       </div>
     </Router>

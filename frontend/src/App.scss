@@ -43,6 +43,7 @@
   border: 1px solid #00203f;
   transition: background-color 1s ease;
   border: 1px solid #00203f;
+  outline: 0;
 }
 .loginButton:hover {
   background-color: #35699c;
@@ -155,6 +156,7 @@
   cursor: pointer;
   margin: 1%;
   outline: 0;
+  width: 100px;
 }
 .selected:hover {
   background-color: #fa6664;
@@ -168,6 +170,7 @@
   cursor: pointer;
   margin: 1%;
   outline: 0;
+  width: 100px;
 }
 .notSelected:hover {
   background-color: #39d3a5;
@@ -183,25 +186,65 @@
     font-size: 1.2rem;
   }
   .playlistImage {
-    width: 40%;
+    width: 100%;
   }
   .playlist {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background: #00203f;
     border-radius: 15px;
-    color: white;
-    width: 400px;
+    color: #00203f;
+    width: 270px;
     padding-bottom: 1%;
     margin: 1% 1%;
+    border: 1px solid #e1e1e6;
+    padding-top: 0.5%;
+  }
+  .playlist:hover {
+    border: 1px solid #78ffd6;
   }
   .playlistLinks {
     margin-top: 5%;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+  }
+  .trackURL {
+    background-color: #00203f;
+    border: 1px solid white;
+    color: #e1e1e6;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 2%;
+    border-radius: 15px;
+    width: 50%;
+    padding: 2% 5%;
+    transition: background-color 1s ease;
+    outline: 0;
+  }
+  .trackURL:hover {
+    border: 1px solid #78ffd6;
+    background-color: #0155aa;
+  }
+  .public {
+    font-size: 0.8rem;
+    color: #4bb543;
+  }
+  .private {
+    font-size: 0.8rem;
+    color: #fa6664;
+  }
+  .container1 {
+    width: 70%;
+  }
+
+  img {
+    border: 3px solid white;
+    cursor: pointer;
+  }
+  img:hover {
+    border: 3px solid #ffcccb;
   }
 }
 
@@ -232,6 +275,11 @@
   }
   .trackImage {
     width: 70%;
+    border: 3px solid white;
+    cursor: pointer;
+  }
+  .trackImage:hover {
+    border: 3px solid #ffcccb;
   }
   p {
     font-size: 0.8rem;
@@ -247,6 +295,7 @@
     width: 50%;
     padding: 2% 5%;
     transition: background-color 1s ease;
+    outline: 0;
   }
   .trackURL:hover {
     border: 1px solid #78ffd6;
@@ -290,27 +339,46 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   border-bottom: 1px solid #e1e1e6;
-  cursor: pointer;
 }
 .playlistsong:hover {
   background: linear-gradient(90deg, #a8ff78, #78ffd6);
   color: black;
 }
+
 .song {
   width: 25%;
-
   white-space: nowrap;
+  cursor: pointer;
+}
+.listIcon {
+  color: black;
+}
+.listIcon:hover {
+  color: blue;
+}
+.song:hover {
+  text-decoration: underline;
+  color: blue;
 }
 .artist {
   width: 25%;
-
+  cursor: pointer;
   white-space: nowrap;
+}
+.artist:hover {
+  text-decoration: underline;
+  color: blue;
 }
 .artist1 {
   width: 25%;
-
+  cursor: pointer;
   white-space: nowrap;
+}
+.artist1:hover {
+  text-decoration: underline;
+  color: blue;
 }
 
 .playlistheaders {
@@ -318,8 +386,6 @@
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  overflow: hidden;
-  white-space: nowrap;
   border-bottom: 1px solid #e1e1e6;
   color: #a9a9a9;
   .playlistheader {
@@ -327,6 +393,9 @@
   }
   .playlistheader1 {
     width: 25%;
+  }
+  .playlistheader2 {
+    width: 1.5%;
   }
 
   p {
@@ -361,10 +430,15 @@
     display: inline-block;
     width: 20%;
   }
+
   img {
     width: 100%;
     margin-left: 30%;
     cursor: pointer;
+    border: 3px solid white;
+  }
+  img:hover {
+    border-color: #78ffd6;
   }
   .createInfo {
     width: 20%;
@@ -373,9 +447,9 @@
     align-items: center;
   }
   .playlistButton {
-    background: linear-gradient(90deg, #a8ff78, #78ffd6);
+    background-color: #00203f;
     border: 1px solid white;
-    color: #00203f;
+    color: white;
     text-decoration: none;
     font-size: 1rem;
     padding: 2%;
@@ -386,16 +460,17 @@
     width: 300px;
     cursor: pointer;
     transition: background-color 1s ease;
+    outline: 0;
   }
   .playlistButton:hover {
-    background: #00203f;
-    color: white;
+    border: 1px solid #78ffd6;
+    background-color: #0155aa;
   }
 }
 .playlistURL1 {
-  background: linear-gradient(90deg, #a8ff78, #78ffd6);
+  background-color: #00203f;
   border: 1px solid white;
-  color: #00203f;
+  color: white;
   text-decoration: none;
   font-size: 1rem;
   padding: 2%;
@@ -403,12 +478,12 @@
   white-space: nowrap;
   overflow: visible;
   padding: 4% 10%;
+  outline: 0;
   transition: background-color 1s ease;
-  transition: color 1s ease;
 }
 .playlistURL1:hover {
-  background: #00203f;
-  color: white;
+  border: 1px solid #78ffd6;
+  background-color: #0155aa;
 }
 .playlistURL {
   background-color: white;
@@ -420,8 +495,8 @@
   border-radius: 15px;
   width: 33%;
   padding: 2% 5%;
+  outline: 0;
   transition: background-color 1s ease;
-  transition: color 1s ease;
 }
 .playlistURL:hover {
   background: linear-gradient(90deg, #a8ff78, #78ffd6);
@@ -502,6 +577,7 @@
     }
   }
 }
+
 @media (max-width: 1023px) {
   .createInfo {
     width: 90% !important;
@@ -554,5 +630,8 @@
   }
   .login .rotate {
     margin-left: 5%;
+  }
+  .playlistheader2 {
+    margin-right: 7%;
   }
 }

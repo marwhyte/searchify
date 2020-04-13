@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const override = css`
   display: block;
@@ -44,7 +46,7 @@ const Home = (props) => {
       props.history.push("/");
     }
 
-    fetch("https://api.spotify.com/v1/me/playlists?limit=6", {
+    fetch("https://api.spotify.com/v1/me/playlists?limit=10", {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -101,9 +103,6 @@ const Home = (props) => {
       setSearchQuery("No songs");
     }
   };
-
-  console.log(topArtists);
-  console.log(topTracks);
 
   return (
     <div className="home">
@@ -178,18 +177,26 @@ const Home = (props) => {
               ) : (
                 userData.playlists.map((playlist) => (
                   <div className="playlist">
+                    <div className="container1">
+                      <img
+                        className="playlistImage"
+                        onClick={() =>
+                          window.open(playlist.external_urls.spotify, "_blank")
+                        }
+                        src={
+                          playlist.images.length !== 0
+                            ? playlist.images[0].url
+                            : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+                        }
+                        alt="playlist"
+                      />
+                    </div>
                     <h2>{playlist.name}</h2>
-
-                    <img
-                      className="playlistImage"
-                      src={
-                        playlist.images.length !== 0
-                          ? playlist.images[0].url
-                          : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-                      }
-                      alt="playlist"
-                    />
-
+                    {playlist.public ? (
+                      <p className="public">public playlist</p>
+                    ) : (
+                      <p className="private">private playlist</p>
+                    )}
                     <div className="playlistLinks">
                       <Link
                         to={{
@@ -197,17 +204,10 @@ const Home = (props) => {
                           search: props.location.search,
                           playlistInfo: playlist,
                         }}
-                        className="playlistURL"
+                        className="trackURL"
                       >
                         View this playlist
                       </Link>
-                      <a
-                        href={playlist.external_urls.spotify}
-                        className="playlistURL"
-                        target="_blank"
-                      >
-                        Open In Spotify!
-                      </a>
                     </div>
                   </div>
                 ))
@@ -231,6 +231,9 @@ const Home = (props) => {
                     <div className="yourSong">
                       <img
                         className="trackImage"
+                        onClick={() =>
+                          window.open(track.external_urls.spotify, "_blank")
+                        }
                         src={
                           track.album.images.length !== 0
                             ? track.album.images[0].url
@@ -250,10 +253,12 @@ const Home = (props) => {
                         to={{
                           pathname: "/search",
                           search: props.location.search,
+                          searchInfo: track,
+                          userData: userData,
                         }}
                         className="trackURL"
                       >
-                        View this playlist
+                        Find Similar Songs
                       </Link>
                     </div>
                   ))}
@@ -262,31 +267,38 @@ const Home = (props) => {
             </div>
           </div>
         ) : (
-          <div className="yourSongs">
-            {topArtists.map((artist) => (
-              <div className="yourSong">
-                <img
-                  className="trackImage"
-                  src={
-                    artist.images.length !== 0
-                      ? artist.images[0].url
-                      : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-                  }
-                  alt="artist"
-                />
-                <h2>{artist.name}</h2>
-                <p>{artist.genres[0]}</p>
-                <Link
-                  to={{
-                    pathname: "/search",
-                    search: props.location.search,
-                  }}
-                  className="trackURL"
-                >
-                  View this playlist
-                </Link>
-              </div>
-            ))}
+          <div>
+            <h1>Your top Artists!</h1>
+            <div className="yourSongs">
+              {topArtists.map((artist) => (
+                <div className="yourSong">
+                  <img
+                    className="trackImage"
+                    onClick={() =>
+                      window.open(artist.external_urls.spotify, "_blank")
+                    }
+                    src={
+                      artist.images.length !== 0
+                        ? artist.images[0].url
+                        : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+                    }
+                    alt="artist"
+                  />
+                  <h2>{artist.name}</h2>
+                  <p>{artist.genres[0]}</p>
+                  <Link
+                    to={{
+                      pathname: "/artist",
+                      search: props.location.search,
+                      artistInfo: artist,
+                    }}
+                    className="trackURL"
+                  >
+                    View this Artist
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
