@@ -615,6 +615,9 @@
   .playlistheader1 {
     display: none !important;
   }
+  .listIcon {
+    margin-left: 10px !important;
+  }
 }
 
 @media (max-width: 500px) {
@@ -633,5 +636,9 @@
   }
   .playlistheader2 {
     margin-right: 7%;
+  }
+  .wholeForm {
+    padding-left: 3% !important;
+    padding-right: 4% !important;
   }
 }

@@ -114,7 +114,11 @@ const Home = (props) => {
         <h1>Find Music for You</h1>
         <h3>Search by artist or song to find a playlist tailored to you!</h3>
 
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <input
             type="text"
             className="songSearch"
@@ -167,64 +171,64 @@ const Home = (props) => {
         {topic === "playlist" ? (
           <div>
             <h1>Your top Playlists!</h1>
-            <div className="playlists">
+            <div className="nothing">
               {!userData.playlists ? (
                 <div className="sweet-loading">
                   <RingLoader css={override} size={40} color={"#123abc"} />
                 </div>
-              ) : userData.playlists.length === 0 ? (
-                <p>User Has no Playlists</p>
               ) : (
-                userData.playlists.map((playlist) => (
-                  <div className="playlist">
-                    <div className="container1">
-                      <img
-                        className="playlistImage"
-                        onClick={() =>
-                          window.open(playlist.external_urls.spotify, "_blank")
-                        }
-                        src={
-                          playlist.images.length !== 0
-                            ? playlist.images[0].url
-                            : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-                        }
-                        alt="playlist"
-                      />
+                <div className="playlists">
+                  {userData.playlists.map((playlist) => (
+                    <div className="playlist">
+                      <div className="container1">
+                        <img
+                          className="playlistImage"
+                          onClick={() =>
+                            window.open(
+                              playlist.external_urls.spotify,
+                              "_blank"
+                            )
+                          }
+                          src={
+                            playlist.images.length !== 0
+                              ? playlist.images[0].url
+                              : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+                          }
+                          alt="playlist"
+                        />
+                      </div>
+                      <h2>{playlist.name}</h2>
+                      {playlist.public ? (
+                        <p className="public">public playlist</p>
+                      ) : (
+                        <p className="private">private playlist</p>
+                      )}
+                      <div className="playlistLinks">
+                        <Link
+                          to={{
+                            pathname: "/playlist",
+                            search: props.location.search,
+                            playlistInfo: playlist,
+                          }}
+                          className="trackURL"
+                        >
+                          View this playlist
+                        </Link>
+                      </div>
                     </div>
-                    <h2>{playlist.name}</h2>
-                    {playlist.public ? (
-                      <p className="public">public playlist</p>
-                    ) : (
-                      <p className="private">private playlist</p>
-                    )}
-                    <div className="playlistLinks">
-                      <Link
-                        to={{
-                          pathname: "/playlist",
-                          search: props.location.search,
-                          playlistInfo: playlist,
-                        }}
-                        className="trackURL"
-                      >
-                        View this playlist
-                      </Link>
-                    </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               )}
             </div>
           </div>
         ) : topic === "song" ? (
           <div>
-            {" "}
             <h1>Your top Songs!</h1>
             <div className="topSongs">
               {!topTracks ? (
                 <div className="sweet-loading">
                   <RingLoader css={override} size={40} color={"#123abc"} />
                 </div>
-              ) : topTracks.length === 0 ? (
-                <p>You don't have any top tracks!</p>
               ) : (
                 <div className="yourSongs">
                   {topTracks.map((track) => (
@@ -269,36 +273,43 @@ const Home = (props) => {
         ) : (
           <div>
             <h1>Your top Artists!</h1>
-            <div className="yourSongs">
-              {topArtists.map((artist) => (
-                <div className="yourSong">
-                  <img
-                    className="trackImage"
-                    onClick={() =>
-                      window.open(artist.external_urls.spotify, "_blank")
-                    }
-                    src={
-                      artist.images.length !== 0
-                        ? artist.images[0].url
-                        : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-                    }
-                    alt="artist"
-                  />
-                  <h2>{artist.name}</h2>
-                  <p>{artist.genres[0]}</p>
-                  <Link
-                    to={{
-                      pathname: "/artist",
-                      search: props.location.search,
-                      artistInfo: artist,
-                    }}
-                    className="trackURL"
-                  >
-                    View this Artist
-                  </Link>
-                </div>
-              ))}
-            </div>
+
+            {!topArtists ? (
+              <div className="sweet-loading">
+                <RingLoader css={override} size={40} color={"#123abc"} />
+              </div>
+            ) : (
+              <div className="yourSongs">
+                {topArtists.map((artist) => (
+                  <div className="yourSong">
+                    <img
+                      className="trackImage"
+                      onClick={() =>
+                        window.open(artist.external_urls.spotify, "_blank")
+                      }
+                      src={
+                        artist.images.length !== 0
+                          ? artist.images[0].url
+                          : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+                      }
+                      alt="artist"
+                    />
+                    <h2>{artist.name}</h2>
+                    <p>{artist.genres[0]}</p>
+                    <Link
+                      to={{
+                        pathname: "/artist",
+                        search: props.location.search,
+                        artistInfo: artist,
+                      }}
+                      className="trackURL"
+                    >
+                      View this Artist
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
