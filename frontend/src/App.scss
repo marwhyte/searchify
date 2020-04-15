@@ -37,7 +37,7 @@
   background-color: #00203f;
   border-radius: 15px;
   padding: 1% 5%;
-  width: 90px;
+  width: 125px;
   font-size: 1rem;
   text-decoration: none;
   border: 1px solid #00203f;
@@ -53,7 +53,13 @@
 }
 .login h1 {
   color: #00203f;
-  font-size: 2rem;
+  font-size: 2.6rem;
+}
+.searchifyTitle {
+  font-size: 3.3rem;
+}
+.login h2 {
+  font-size: 1.4rem;
 }
 
 /*Home Screen */
@@ -91,6 +97,10 @@
   }
   h3 {
     font-size: 1rem;
+    padding-bottom: 3%;
+  }
+  h4 {
+    font-size: 1.4rem;
   }
   .right {
     display: flex;
@@ -461,6 +471,8 @@
     cursor: pointer;
     transition: background-color 1s ease;
     outline: 0;
+    padding-top: 4%;
+    padding-bottom: 4%;
   }
   .playlistButton:hover {
     border: 1px solid #78ffd6;
@@ -612,11 +624,26 @@
   .playlistheader {
     width: 45% !important;
   }
+  .push {
+    padding-left: 7% !important;
+  }
   .playlistheader1 {
     display: none !important;
   }
   .listIcon {
     margin-left: 10px !important;
+  }
+  .loginButton {
+    width: 200px !important;
+    padding-top: 3% !important;
+    padding-bottom: 3% !important;
+  }
+  .listIcon {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .playlistheader2 {
+    padding-left: 10px !important;
   }
 }
 
@@ -637,8 +664,51 @@
   .playlistheader2 {
     margin-right: 7%;
   }
-  .wholeForm {
-    padding-left: 3% !important;
-    padding-right: 4% !important;
+  .login h2 {
+    width: 87% !important;
+  }
+  .songSearch {
+    padding: 3% !important;
+    margin-top: 3% !important;
+  }
+  .link {
+    margin-top: 6% !important;
+  }
+  .selected {
+    padding: 3% !important;
+  }
+  .notSelected {
+    padding: 3% !important;
+  }
+  .yourMusic {
+    padding-top: 6% !important;
+    padding-bottom: 5% !important;
+  }
+  .playlistImage {
+    width: 80% !important;
+  }
+  .playlist {
+    padding-top: 6% !important;
+    padding-bottom: 6% !important;
+  }
+  .trackURL {
+    padding: 5% !important;
+  }
+  .search h3 {
+    width: 70% !important;
+    margin: 0 auto;
+    padding-bottom: 5% !important;
+  }
+  .trackImage {
+    width: 60% !important;
+  }
+  .yourSong {
+    padding-top: 6% !important;
+    padding-bottom: 6% !important;
+  }
+}
+@media (max-width: 356px) {
+  .songSearch {
+    width: 85% !important;
   }
 }

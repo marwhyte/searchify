@@ -131,7 +131,7 @@ const Artist = (props) => {
 
       <div className="playlistheaders">
         <p className="playlistheader2">Searchify</p>
-        <p className="playlistheader">Song Title</p>
+        <p className="playlistheader push">Song Title</p>
         <p className="playlistheader">Song Artist</p>
         <p className="playlistheader1">Album</p>
       </div>

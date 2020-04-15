@@ -19,8 +19,8 @@ export default function Register(props) {
   return (
     <div className="login">
       <div className="wholeForm">
-        <h1>Welcome to your Music Companion!</h1>
-
+        <h1>Searchify</h1>
+        <h2>Welcome to Your Music Companion</h2>
         {!loading ? (
           <a
             href="https://myspotifybackendserver.herokuapp.com/auth/login"
@@ -29,7 +29,7 @@ export default function Register(props) {
               setLoading(true);
             }}
           >
-            login
+            login with Spotify
           </a>
         ) : (
           <div className="sweet-loading">

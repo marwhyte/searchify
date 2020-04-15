@@ -111,7 +111,8 @@ const Home = (props) => {
           <h2>Welcome {userData.name}</h2>
           <a href="/">Logout</a>
         </div>
-        <h1>Find Music for You</h1>
+        <h1 className="searchifyTitle">Searchify</h1>
+        <h4>Find Music for You</h4>
         <h3>Search by artist or song to find a playlist tailored to you!</h3>
 
         <form
