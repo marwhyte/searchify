@@ -7,8 +7,8 @@ $danger: #ff463f;
 $success: #85c910;
 $warning: #ffdc00;
 $info: #00a1ff;
-$bgcolor: #000000;
-$bggradient: #3f3f3f;
+$bgcolor: #00c6ff;
+$bggradient: #0072ff;
 .App {
   text-align: center;
   font-size: 62.5%;
@@ -44,7 +44,7 @@ $bggradient: #3f3f3f;
 .loginButton {
   margin-top: 5%;
   color: white;
-  background-color: $secondary;
+  background-color: rgb(0, 184, 0);
   border-radius: 15px;
   padding: 1% 5%;
   width: 125px;
@@ -55,7 +55,7 @@ $bggradient: #3f3f3f;
   outline: 0;
 }
 .loginButton:hover {
-  background-color: rgb(70, 38, 189);
+  background-color: rgb(0, 151, 0);
 }
 .loginFooter {
   height: 22vh;
@@ -63,9 +63,11 @@ $bggradient: #3f3f3f;
 .login h1 {
   font-size: 2.6rem;
   color: white;
+  font-weight: 100;
 }
 .searchifyTitle {
   font-size: 3.3rem;
+  font-weight: 100;
 }
 .login h2 {
   font-size: 1.4rem;
@@ -129,10 +131,10 @@ $bggradient: #3f3f3f;
       margin-left: 1%;
       font-size: 1rem;
       text-decoration: none;
-      color: $danger;
+      color: #fa6964;
     }
     a:hover {
-      color: #be2d28;
+      color: $danger;
     }
   }
 }
@@ -526,7 +528,9 @@ $bggradient: #3f3f3f;
 .sweet-loading {
   margin: 3%;
 }
-
+.marginBottom {
+  margin-bottom: 30px;
+}
 //search songs
 .savePlaylist {
   display: flex;
@@ -577,6 +581,8 @@ $bggradient: #3f3f3f;
 
 //Explore section
 .explore {
+  padding-top: 2%;
+  padding-bottom: 3%;
   width: 100%;
   background: linear-gradient(90deg, #ee0979, #ff6a00);
   color: white;
@@ -613,6 +619,7 @@ $bggradient: #3f3f3f;
   img {
     width: 100%;
     border: 2px solid #ee0979;
+    cursor: pointer;
   }
   img:hover {
     border-color: $secondary;
@@ -620,6 +627,10 @@ $bggradient: #3f3f3f;
   h3 {
     font-size: 1.3rem;
     margin: 0;
+    cursor: pointer;
+  }
+  h3:hover {
+    color: rgb(173, 173, 173);
   }
   p {
     font-size: 1rem;
@@ -643,6 +654,33 @@ $bggradient: #3f3f3f;
 }
 .featureButton:hover {
   background-color: rgb(70, 38, 189);
+}
+.selectedExplore {
+  border: none;
+  background-color: $success;
+  border-radius: 5px;
+  padding: 1% 2%;
+  cursor: pointer;
+  margin: 1%;
+  outline: 0;
+  color: white;
+}
+.selectedExplore:hover {
+  background-color: rgb(110, 167, 13);
+}
+
+.notSelectedExplore {
+  border: none;
+  background-color: $bgcolor;
+  border-radius: 5px;
+  padding: 1% 2%;
+  cursor: pointer;
+  margin: 1%;
+  outline: 0;
+  color: white;
+}
+.notSelectedExplore:hover {
+  background-color: #0194bd;
 }
 
 //media queries
@@ -690,6 +728,12 @@ $bggradient: #3f3f3f;
   }
 }
 
+@media (max-width: 981px) {
+  .feature {
+    width: 90% !important;
+    margin-bottom: 30px !important;
+  }
+}
 @media (max-width: 900px) {
   .searchClick {
     margin-top: 50px !important;

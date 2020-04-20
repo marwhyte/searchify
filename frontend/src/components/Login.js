@@ -32,7 +32,7 @@ export default function Register(props) {
         <h2>Welcome to Your Music Companion</h2>
         {!loading ? (
           <a
-            href="http://localhost:5000/auth/login"
+            href="https://myspotifybackendserver.herokuapp.com/auth/login"
             className="loginButton"
             onClick={() => {
               setLoading(true);

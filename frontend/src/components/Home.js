@@ -352,7 +352,9 @@ const Home = (props) => {
           <div className="selector">
             <button
               className={
-                exploreTopic === "featured" ? "selected" : "notSelected"
+                exploreTopic === "featured"
+                  ? "selectedExplore"
+                  : "notSelectedExplore"
               }
               onClick={() => setExploreTopic("featured")}
             >
@@ -360,7 +362,9 @@ const Home = (props) => {
             </button>
             <button
               className={
-                exploreTopic === "releases" ? "selected" : "notSelected"
+                exploreTopic === "releases"
+                  ? "selectedExplore"
+                  : "notSelectedExplore"
               }
               onClick={() => setExploreTopic("releases")}
             >
@@ -383,10 +387,25 @@ const Home = (props) => {
                           <img
                             alt="Top Featured Playlist cover"
                             src={playlist.images[0].url}
+                            onClick={() =>
+                              window.open(
+                                playlist.external_urls.spotify,
+                                "_blank"
+                              )
+                            }
                           />
                         </div>
                         <div className="featureText">
-                          <h3>{playlist.name}</h3>
+                          <h3
+                            onClick={() =>
+                              window.open(
+                                playlist.external_urls.spotify,
+                                "_blank"
+                              )
+                            }
+                          >
+                            {playlist.name}
+                          </h3>
                           <p>{playlist.description}</p>
                         </div>
                         <Link
@@ -412,8 +431,40 @@ const Home = (props) => {
                     <RingLoader css={override} size={40} color={"#123abc"} />
                   </div>
                 ) : (
-                  <div className="release">
-                    {/* <img alt="Top Release playlist cover"/> */}
+                  <div className="allFeaturePlaylists">
+                    {newReleases.items.map((album) => (
+                      <div className="feature">
+                        <div className="featureImage">
+                          <img
+                            alt="Top Featured Playlist cover"
+                            src={album.images[0].url}
+                            onClick={() =>
+                              window.open(album.external_urls.spotify, "_blank")
+                            }
+                          />
+                        </div>
+                        <div className="featureText">
+                          <h3
+                            onClick={() =>
+                              window.open(album.external_urls.spotify, "_blank")
+                            }
+                          >
+                            {album.name}
+                          </h3>
+                          <p>{album.artists.map((e) => e.name).join(", ")}</p>
+                        </div>
+                        <Link
+                          to={{
+                            pathname: "/album",
+                            search: props.location.search,
+                            albumInfo: album,
+                          }}
+                          className="featureButton"
+                        >
+                          View
+                        </Link>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>

@@ -6,6 +6,7 @@ import Playlist from "./components/Playlist";
 import Search from "./components/Search";
 import Artist from "./components/Artist";
 import Footer from "./components/Footer";
+import Album from "./components/Album";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/playlist" component={Playlist} />
           <Route path="/search" component={Search} />
           <Route path="/artist" component={Artist} />
+          <Route path="/album" component={Album} />
         </Switch>
       </div>
     </Router>
