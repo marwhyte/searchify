@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 @import "~pretty-checkbox/src/pretty-checkbox.scss";
 
+$secondary: #5f34f9;
+$primary: #78ffd6;
+$danger: #ff463f;
+$success: #85c910;
+$warning: #ffdc00;
+$info: #00a1ff;
+$bgcolor: #000000;
+$bggradient: #3f3f3f;
 .App {
   text-align: center;
   font-size: 62.5%;
@@ -18,7 +26,11 @@
   margin-top: 0%;
   outline: none;
 }
-
+.sameLine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .wholeForm {
   width: 100%;
   height: 78vh;
@@ -27,39 +39,37 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(-45deg, #a8ff78, #78ffd6, #c9ffab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  background: linear-gradient(90deg, $bgcolor, $bggradient);
 }
 .loginButton {
   margin-top: 5%;
   color: white;
-  background-color: #00203f;
+  background-color: $secondary;
   border-radius: 15px;
   padding: 1% 5%;
   width: 125px;
   font-size: 1rem;
   text-decoration: none;
-  border: 1px solid #00203f;
-  transition: background-color 1s ease;
-  border: 1px solid #00203f;
+  border: 1px solid $secondary;
+  border: 1px solid $secondary;
   outline: 0;
 }
 .loginButton:hover {
-  background-color: #35699c;
+  background-color: rgb(70, 38, 189);
 }
 .loginFooter {
   height: 22vh;
 }
 .login h1 {
-  color: #00203f;
   font-size: 2.6rem;
+  color: white;
 }
 .searchifyTitle {
   font-size: 3.3rem;
 }
 .login h2 {
   font-size: 1.4rem;
+  color: white;
 }
 
 /*Home Screen */
@@ -75,7 +85,7 @@
 
 //search
 .search {
-  background: linear-gradient(90deg, #a8ff78, #78ffd6);
+  background: linear-gradient(90deg, $bgcolor, $bggradient);
 
   padding-bottom: 10%;
   width: 100%;
@@ -83,24 +93,31 @@
     margin-bottom: 1%;
     border: none;
     padding: 1%;
-    border-radius: 15px;
+    border-radius: 10px;
     font-size: 1.3rem;
     width: 300px;
     outline-width: 0;
   }
 
   p {
-    color: #00203f;
+    color: white;
+  }
+  h1 {
+    color: white;
+    font-size: 2.6rem;
   }
   h2 {
     font-size: 1.2rem;
+    color: white;
   }
   h3 {
     font-size: 1rem;
     padding-bottom: 3%;
+    color: white;
   }
   h4 {
     font-size: 1.4rem;
+    color: white;
   }
   .right {
     display: flex;
@@ -112,29 +129,18 @@
       margin-left: 1%;
       font-size: 1rem;
       text-decoration: none;
-      color: black;
+      color: $danger;
     }
     a:hover {
-      color: white;
+      color: #be2d28;
     }
   }
 }
 
-.searchItem {
-  color: white;
-
-  text-decoration: none;
-  width: 15%;
-  margin: 0 auto;
-  border-radius: 15px;
-}
-.searchItem:hover {
-  background-color: #191414;
-}
 .link {
   font-size: 1rem;
   text-decoration: none;
-  color: #00203f;
+  color: white;
   padding: 1%;
   cursor: pointer;
   width: 300px;
@@ -142,8 +148,7 @@
   border-radius: 15px;
 }
 .link:hover {
-  background-color: #00203f;
-  color: white;
+  background-color: $secondary;
 }
 .searchFlex {
   display: flex;
@@ -160,30 +165,31 @@
 }
 .selected {
   border: none;
-  background-color: #ffcccb;
-  border-radius: 15px;
+  background-color: $success;
+  border-radius: 5px;
   padding: 1% 2%;
   cursor: pointer;
   margin: 1%;
   outline: 0;
-  width: 100px;
+  color: white;
 }
 .selected:hover {
-  background-color: #fa6664;
+  background-color: rgb(110, 167, 13);
 }
 
 .notSelected {
   border: none;
-  background-color: #78ffd6;
-  border-radius: 15px;
+  background-color: $danger;
+  border-radius: 5px;
   padding: 1% 2%;
   cursor: pointer;
   margin: 1%;
   outline: 0;
-  width: 100px;
+
+  color: white;
 }
 .notSelected:hover {
-  background-color: #39d3a5;
+  background-color: rgb(201, 55, 50);
 }
 //Playlists
 .playlists {
@@ -204,15 +210,15 @@
     justify-content: space-evenly;
     align-items: center;
     border-radius: 15px;
-    color: #00203f;
+    color: black;
     width: 270px;
     padding-bottom: 1%;
     margin: 1% 1%;
-    border: 1px solid #e1e1e6;
     padding-top: 0.5%;
+    border: 1px solid white;
   }
   .playlist:hover {
-    border: 1px solid #78ffd6;
+    border: 1px solid black;
   }
   .playlistLinks {
     margin-top: 5%;
@@ -221,21 +227,20 @@
     justify-content: space-evenly;
   }
   .trackURL {
-    background-color: #00203f;
+    background-color: $secondary;
     border: 1px solid white;
     color: #e1e1e6;
     text-decoration: none;
     font-size: 1rem;
     padding: 2%;
-    border-radius: 15px;
+    border-radius: 5px;
     width: 50%;
-    padding: 2% 5%;
-    transition: background-color 1s ease;
+    padding: 4% 6%;
     outline: 0;
   }
   .trackURL:hover {
-    border: 1px solid #78ffd6;
-    background-color: #0155aa;
+    border: 1px solid $secondary;
+    background-color: rgb(70, 38, 189);
   }
   .public {
     font-size: 0.8rem;
@@ -250,11 +255,11 @@
   }
 
   img {
-    border: 3px solid white;
+    border: 2px solid white;
     cursor: pointer;
   }
   img:hover {
-    border: 3px solid #ffcccb;
+    border: 2px solid $secondary;
   }
 }
 
@@ -273,43 +278,42 @@
     justify-content: space-evenly;
     align-items: center;
     border-radius: 15px;
-    color: #00203f;
+    color: black;
     width: 270px;
     padding-bottom: 1%;
     margin: 1% 1%;
-    border: 1px solid #e1e1e6;
     padding-top: 0.5%;
+    border: 1px solid white;
   }
   .yourSong:hover {
-    border: 1px solid #78ffd6;
+    border: 1px solid black;
   }
   .trackImage {
     width: 70%;
-    border: 3px solid white;
+    border: 2px solid white;
     cursor: pointer;
   }
   .trackImage:hover {
-    border: 3px solid #ffcccb;
+    border: 2px solid $secondary;
   }
   p {
     font-size: 0.8rem;
   }
   .trackURL {
-    background-color: #00203f;
+    background-color: $secondary;
     border: 1px solid white;
     color: #e1e1e6;
     text-decoration: none;
     font-size: 1rem;
     padding: 2%;
-    border-radius: 15px;
+    border-radius: 5px;
     width: 50%;
-    padding: 2% 5%;
-    transition: background-color 1s ease;
+    padding: 4% 6%;
     outline: 0;
   }
   .trackURL:hover {
-    border: 1px solid #78ffd6;
-    background-color: #0155aa;
+    border: 1px solid $secondary;
+    background-color: rgb(70, 38, 189);
   }
 }
 
@@ -329,11 +333,14 @@
   position: sticky;
 }
 .goBack {
-  color: #1db954;
+  color: $danger;
   position: fixed;
   background-color: white;
   border-radius: 15px;
   cursor: pointer;
+}
+.goBack:hover {
+  color: #ce3832;
 }
 .playlistsongs {
   display: flex;
@@ -353,8 +360,8 @@
   border-bottom: 1px solid #e1e1e6;
 }
 .playlistsong:hover {
-  background: linear-gradient(90deg, #a8ff78, #78ffd6);
-  color: black;
+  background: $secondary;
+  color: white;
 }
 
 .song {
@@ -363,14 +370,17 @@
   cursor: pointer;
 }
 .listIcon {
-  color: black;
+  color: $danger;
 }
 .listIcon:hover {
-  color: blue;
+  color: #ff716c;
+  .listIcon {
+    color: white;
+  }
 }
 .song:hover {
-  text-decoration: underline;
-  color: blue;
+  text-decoration: overline;
+  color: #ff716c;
 }
 .artist {
   width: 25%;
@@ -378,8 +388,8 @@
   white-space: nowrap;
 }
 .artist:hover {
-  text-decoration: underline;
-  color: blue;
+  text-decoration: overline;
+  color: #ff716c;
 }
 .artist1 {
   width: 25%;
@@ -387,8 +397,8 @@
   white-space: nowrap;
 }
 .artist1:hover {
-  text-decoration: underline;
-  color: blue;
+  text-decoration: overline;
+  color: #ff716c;
 }
 
 .playlistheaders {
@@ -426,8 +436,8 @@
   .playlistName {
     margin-bottom: 1%;
     border: 1px solid black;
-    padding: 3%;
-    border-radius: 15px;
+    padding: 4%;
+    border-radius: 10px;
     font-size: 1rem;
     width: 280px;
     outline-width: 0;
@@ -445,10 +455,10 @@
     width: 100%;
     margin-left: 30%;
     cursor: pointer;
-    border: 3px solid white;
+    border: 2px solid white;
   }
   img:hover {
-    border-color: #78ffd6;
+    border-color: $secondary;
   }
   .createInfo {
     width: 20%;
@@ -457,7 +467,7 @@
     align-items: center;
   }
   .playlistButton {
-    background-color: #00203f;
+    background-color: $secondary;
     border: 1px solid white;
     color: white;
     text-decoration: none;
@@ -469,18 +479,17 @@
     padding: 2% 5%;
     width: 300px;
     cursor: pointer;
-    transition: background-color 1s ease;
     outline: 0;
     padding-top: 4%;
     padding-bottom: 4%;
   }
   .playlistButton:hover {
-    border: 1px solid #78ffd6;
-    background-color: #0155aa;
+    border: 1px solid $secondary;
+    background-color: rgb(70, 38, 189);
   }
 }
 .playlistURL1 {
-  background-color: #00203f;
+  background-color: $secondary;
   border: 1px solid white;
   color: white;
   text-decoration: none;
@@ -491,16 +500,15 @@
   overflow: visible;
   padding: 4% 10%;
   outline: 0;
-  transition: background-color 1s ease;
 }
 .playlistURL1:hover {
-  border: 1px solid #78ffd6;
-  background-color: #0155aa;
+  border: 1px solid $secondary;
+  background-color: rgb(70, 38, 189);
 }
 .playlistURL {
   background-color: white;
   border: 1px solid white;
-  color: #00203f;
+  color: $secondary;
   text-decoration: none;
   font-size: 1rem;
   padding: 2%;
@@ -511,7 +519,7 @@
   transition: background-color 1s ease;
 }
 .playlistURL:hover {
-  background: linear-gradient(90deg, #a8ff78, #78ffd6);
+  background: linear-gradient(90deg, #a8ff78, $primary);
   color: black;
 }
 
@@ -532,12 +540,12 @@
 .searchClick {
   text-decoration: none;
   font-size: 2.5rem;
-  color: #00203f;
+  color: $danger;
   margin: 0;
   cursor: pointer;
 }
 .searchClick:hover {
-  color: #016dd8;
+  color: #be2d28;
 }
 //footer
 
@@ -565,6 +573,76 @@
 }
 .spotifylogo {
   width: 100%;
+}
+
+//Explore section
+.explore {
+  width: 100%;
+  background: linear-gradient(90deg, #ee0979, #ff6a00);
+  color: white;
+  h1 {
+    font-size: 2.6rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  .allFeaturePlaylists {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .feature {
+    width: 49%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .featureText {
+    padding: 3%;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 10px;
+  }
+  .featureImage {
+    width: 100px;
+  }
+  img {
+    width: 100%;
+    border: 2px solid #ee0979;
+  }
+  img:hover {
+    border-color: $secondary;
+  }
+  h3 {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  p {
+    font-size: 1rem;
+    margin: 0;
+    margin-top: 10px;
+  }
+}
+.exploreTitles {
+  display: flex;
+  flex-direction: column;
+}
+.featureButton {
+  background-color: $secondary;
+  color: #e1e1e6;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 2% 3%;
+  outline: 0;
+  width: 60px;
+}
+.featureButton:hover {
+  background-color: rgb(70, 38, 189);
 }
 
 //media queries
@@ -599,6 +677,7 @@
   }
   .noMargin {
     width: 35% !important;
+    margin-top: 25px;
     img {
       margin: 0;
       margin-top: 10%;
@@ -608,6 +687,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .searchClick {
+    margin-top: 50px !important;
+  }
+  .playlisttop {
+    margin-top: 40px !important;
   }
 }
 
@@ -647,6 +735,18 @@
   }
 }
 
+@media (max-width: 600px) {
+  .home .playlist {
+    padding: 0 !important;
+    margin: 1% !important;
+    width: 150px !important;
+  }
+  .home .yourSong {
+    padding: 0 !important;
+    margin: 1% !important;
+    width: 150px !important;
+  }
+}
 @media (max-width: 500px) {
   .right {
     justify-content: space-around !important;
@@ -675,10 +775,12 @@
     margin-top: 6% !important;
   }
   .selected {
-    padding: 3% !important;
+    text-align: center;
+    padding: 4% !important;
   }
   .notSelected {
-    padding: 3% !important;
+    text-align: center;
+    padding: 4% !important;
   }
   .yourMusic {
     padding-top: 6% !important;

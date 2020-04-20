@@ -229,34 +229,40 @@ const Search = (props) => {
       </div>
       {songData !== "No songs" ? (
         <div className="playlistsongs">
-          {songData.map((song) => (
-            <div className="playlistsong">
-              <div
-                className="song"
-                onClick={() =>
-                  window.open(song.external_urls.spotify, "_blank")
-                }
-              >
-                <p>{song.name}</p>
-              </div>
-              <div
-                className="artist"
-                onClick={() =>
-                  window.open(song.artists[0].external_urls.spotify, "_blank")
-                }
-              >
-                <p>{song.artists.map((e) => e.name).join(", ")}</p>
-              </div>
-              <div
-                className="artist1"
-                onClick={() =>
-                  window.open(song.album.external_urls.spotify, "_blank")
-                }
-              >
-                <p>{song.album.name}</p>
-              </div>
-            </div>
-          ))}
+          {songData.map(
+            (song) =>
+              song !== null && (
+                <div className="playlistsong">
+                  <div
+                    className="song"
+                    onClick={() =>
+                      window.open(song.external_urls.spotify, "_blank")
+                    }
+                  >
+                    <p>{song.name}</p>
+                  </div>
+                  <div
+                    className="artist"
+                    onClick={() =>
+                      window.open(
+                        song.artists[0].external_urls.spotify,
+                        "_blank"
+                      )
+                    }
+                  >
+                    <p>{song.artists.map((e) => e.name).join(", ")}</p>
+                  </div>
+                  <div
+                    className="artist1"
+                    onClick={() =>
+                      window.open(song.album.external_urls.spotify, "_blank")
+                    }
+                  >
+                    <p>{song.album.name}</p>
+                  </div>
+                </div>
+              )
+          )}
         </div>
       ) : (
         <div className="sweet-loading">

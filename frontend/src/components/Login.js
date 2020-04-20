@@ -7,6 +7,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import spotifylogo from "../images/spotifylogo.png";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
+import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
 
 const override = css`
   display: block;
@@ -19,11 +20,19 @@ export default function Register(props) {
   return (
     <div className="login">
       <div className="wholeForm">
-        <h1>Searchify</h1>
+        <div className="sameLine">
+          <h1>SEARCHIFY</h1>
+          <FontAwesomeIcon
+            icon={faSearchengin}
+            size="5x"
+            color="white"
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <h2>Welcome to Your Music Companion</h2>
         {!loading ? (
           <a
-            href="https://myspotifybackendserver.herokuapp.com/auth/login"
+            href="http://localhost:5000/auth/login"
             className="loginButton"
             onClick={() => {
               setLoading(true);
@@ -36,7 +45,7 @@ export default function Register(props) {
             <RingLoader
               css={override}
               size={40}
-              color={"#123abc"}
+              color={"#FFFFFF"}
               loading={loading}
             />
           </div>

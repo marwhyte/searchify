@@ -7,6 +7,7 @@ import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
 
 const override = css`
   display: block;
@@ -20,6 +21,9 @@ const Home = (props) => {
   const [userData, setUserData] = useState({ name: "", playlists: [] });
   const [searchQuery, setSearchQuery] = useState("No songs");
   const [topic, setTopic] = useState("playlist");
+  const [exploreTopic, setExploreTopic] = useState("featured");
+  const [featured, setFeatured] = useState();
+  const [newReleases, setNewReleases] = useState();
 
   useEffect(() => {
     var parsed = queryString.parse(window.location.search);
@@ -46,7 +50,7 @@ const Home = (props) => {
       props.history.push("/");
     }
 
-    fetch("https://api.spotify.com/v1/me/playlists?limit=10", {
+    fetch("https://api.spotify.com/v1/me/playlists?limit=8", {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -60,7 +64,7 @@ const Home = (props) => {
           };
         });
       });
-    fetch(`https://api.spotify.com/v1/me/top/artists?limit=10`, {
+    fetch(`https://api.spotify.com/v1/me/top/artists?limit=8`, {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -69,7 +73,7 @@ const Home = (props) => {
       .then((data) => {
         setTopArtists(data.items);
       });
-    fetch(`https://api.spotify.com/v1/me/top/tracks?limit=10`, {
+    fetch(`https://api.spotify.com/v1/me/top/tracks?limit=8`, {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -77,6 +81,26 @@ const Home = (props) => {
       .then((res) => res.json())
       .then((data) => {
         setTopTracks(data.items);
+      });
+    fetch(`https://api.spotify.com/v1/browse/featured-playlists?limit=8`, {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFeatured(data.playlists);
+        console.log(data);
+      });
+    fetch(`https://api.spotify.com/v1/browse/new-releases?limit=8`, {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setNewReleases(data.albums);
+        console.log(data);
       });
   }, []);
 
@@ -111,7 +135,15 @@ const Home = (props) => {
           <h2>Welcome {userData.name}</h2>
           <a href="/">Logout</a>
         </div>
-        <h1 className="searchifyTitle">Searchify</h1>
+        <div className="sameLine">
+          <h1>SEARCHIFY</h1>
+          <FontAwesomeIcon
+            icon={faSearchengin}
+            size="5x"
+            color="white"
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <h4>Find Music for You</h4>
         <h3>Search by artist or song to find a playlist tailored to you!</h3>
 
@@ -171,7 +203,7 @@ const Home = (props) => {
         </button>
         {topic === "playlist" ? (
           <div>
-            <h1>Your top Playlists!</h1>
+            <h1>Your Top Playlists</h1>
             <div className="nothing">
               {!userData.playlists ? (
                 <div className="sweet-loading">
@@ -213,7 +245,7 @@ const Home = (props) => {
                           }}
                           className="trackURL"
                         >
-                          View this playlist
+                          View
                         </Link>
                       </div>
                     </div>
@@ -224,7 +256,7 @@ const Home = (props) => {
           </div>
         ) : topic === "song" ? (
           <div>
-            <h1>Your top Songs!</h1>
+            <h1>Your Top Songs</h1>
             <div className="topSongs">
               {!topTracks ? (
                 <div className="sweet-loading">
@@ -263,7 +295,7 @@ const Home = (props) => {
                         }}
                         className="trackURL"
                       >
-                        Find Similar Songs
+                        Searchify
                       </Link>
                     </div>
                   ))}
@@ -273,7 +305,7 @@ const Home = (props) => {
           </div>
         ) : (
           <div>
-            <h1>Your top Artists!</h1>
+            <h1>Your Top Artists</h1>
 
             {!topArtists ? (
               <div className="sweet-loading">
@@ -305,7 +337,7 @@ const Home = (props) => {
                       }}
                       className="trackURL"
                     >
-                      View this Artist
+                      View
                     </Link>
                   </div>
                 ))}
@@ -313,6 +345,81 @@ const Home = (props) => {
             )}
           </div>
         )}
+      </div>
+      <div className="explore">
+        <div className="exploreTitles">
+          <h1>Explore</h1>
+          <div className="selector">
+            <button
+              className={
+                exploreTopic === "featured" ? "selected" : "notSelected"
+              }
+              onClick={() => setExploreTopic("featured")}
+            >
+              Featured
+            </button>
+            <button
+              className={
+                exploreTopic === "releases" ? "selected" : "notSelected"
+              }
+              onClick={() => setExploreTopic("releases")}
+            >
+              New Releases
+            </button>
+          </div>
+          <div className="yourExplore">
+            {exploreTopic === "featured" ? (
+              <div className="yourFeatured">
+                <h2>Featured on Spotify</h2>
+                {!featured ? (
+                  <div className="sweet-loading">
+                    <RingLoader css={override} size={40} color={"#123abc"} />
+                  </div>
+                ) : (
+                  <div className="allFeaturePlaylists">
+                    {featured.items.map((playlist) => (
+                      <div className="feature">
+                        <div className="featureImage">
+                          <img
+                            alt="Top Featured Playlist cover"
+                            src={playlist.images[0].url}
+                          />
+                        </div>
+                        <div className="featureText">
+                          <h3>{playlist.name}</h3>
+                          <p>{playlist.description}</p>
+                        </div>
+                        <Link
+                          to={{
+                            pathname: "/playlist",
+                            search: props.location.search,
+                            playlistInfo: playlist,
+                          }}
+                          className="featureButton"
+                        >
+                          View
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="yourReleases">
+                <h2>Top Releases on Spotify</h2>
+                {!newReleases ? (
+                  <div className="sweet-loading">
+                    <RingLoader css={override} size={40} color={"#123abc"} />
+                  </div>
+                ) : (
+                  <div className="release">
+                    {/* <img alt="Top Release playlist cover"/> */}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

@@ -137,47 +137,53 @@ const Artist = (props) => {
       </div>
       {songs !== "noSongs" ? (
         <div className="playlistsongs">
-          {songs.tracks.map((song) => (
-            <div className="playlistsong">
-              <Link
-                to={{
-                  pathname: "/search",
-                  search: props.location.search,
-                  searchInfo: song,
-                }}
-              >
-                <FontAwesomeIcon
-                  className="listIcon"
-                  icon={faSearchengin}
-                  size="3x"
-                />
-              </Link>
-              <div
-                className="song"
-                onClick={() =>
-                  window.open(song.external_urls.spotify, "_blank")
-                }
-              >
-                <p>{song.name}</p>
-              </div>
-              <div
-                className="artist"
-                onClick={() =>
-                  window.open(song.artists[0].external_urls.spotify, "_blank")
-                }
-              >
-                <p>{song.artists[0].name}</p>
-              </div>{" "}
-              <div
-                className="artist1"
-                onClick={() =>
-                  window.open(song.album.external_urls.spotify, "_blank")
-                }
-              >
-                <p>{song.album.name}</p>
-              </div>
-            </div>
-          ))}
+          {songs.tracks.map(
+            (song) =>
+              song !== null && (
+                <div className="playlistsong">
+                  <Link
+                    to={{
+                      pathname: "/search",
+                      search: props.location.search,
+                      searchInfo: song,
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      className="listIcon"
+                      icon={faSearchengin}
+                      size="3x"
+                    />
+                  </Link>
+                  <div
+                    className="song"
+                    onClick={() =>
+                      window.open(song.external_urls.spotify, "_blank")
+                    }
+                  >
+                    <p>{song.name}</p>
+                  </div>
+                  <div
+                    className="artist"
+                    onClick={() =>
+                      window.open(
+                        song.artists[0].external_urls.spotify,
+                        "_blank"
+                      )
+                    }
+                  >
+                    <p>{song.artists[0].name}</p>
+                  </div>{" "}
+                  <div
+                    className="artist1"
+                    onClick={() =>
+                      window.open(song.album.external_urls.spotify, "_blank")
+                    }
+                  >
+                    <p>{song.album.name}</p>
+                  </div>
+                </div>
+              )
+          )}
         </div>
       ) : (
         <div className="sweet-loading">
