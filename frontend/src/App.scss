@@ -44,7 +44,7 @@ $bggradient: #0072ff;
 .loginButton {
   margin-top: 5%;
   color: white;
-  background-color: rgb(0, 184, 0);
+  background-color: $danger;
   border-radius: 15px;
   padding: 1% 5%;
   width: 125px;
@@ -55,7 +55,7 @@ $bggradient: #0072ff;
   outline: 0;
 }
 .loginButton:hover {
-  background-color: rgb(0, 151, 0);
+  background-color: #ff160e;
 }
 .loginFooter {
   height: 22vh;
