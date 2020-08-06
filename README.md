@@ -5,6 +5,14 @@
 
 Using spotify oAuth, explore new music, view your top playlists, songs and artists and create new playlists based off your top tracks!
 
+## Tech Stack
+
+- React 
+- SASS
+
+### Backend for OAUTH
+- Node
+
 
 ## Contributing to Searchify
 
