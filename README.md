@@ -10,7 +10,7 @@ Using spotify oAuth, explore new music, view your top playlists, songs and artis
 - React 
 - SASS
 
-### Backend for OAUTH
+### Backend for OAuth
 - Node
 
 
