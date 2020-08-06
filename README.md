@@ -1,6 +1,3 @@
-# spotifysuggester
-Spotify song suggester and song favorites!
-
 # [searchify.club](https://www.searchify.club)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/marwhyte/spotifysuggester)
