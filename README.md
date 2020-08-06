@@ -1,7 +1,7 @@
-# [searchify.club](https://www.searchify.club)
+# [searchify](https://www.searchify.club)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/marwhyte/spotifysuggester)
-![GitHub contributors](https://img.shields.io/github/contributors/marwhyte/spotifysuggester)
+![GitHub repo size](https://img.shields.io/github/repo-size/marwhyte/searchify)
+![GitHub contributors](https://img.shields.io/github/contributors/marwhyte/searchify)
 
 Using spotify oAuth, explore new music, view your top playlists, songs and artists and create new playlists based off your top tracks!
 
