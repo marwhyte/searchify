@@ -107,6 +107,7 @@ const Artist = (props) => {
               href={artist.external_urls.spotify}
               className="playlistURL1"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Open In Spotify!
             </a>

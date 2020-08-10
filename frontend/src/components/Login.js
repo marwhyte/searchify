@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import spotifylogo from "../images/spotifylogo.png";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";

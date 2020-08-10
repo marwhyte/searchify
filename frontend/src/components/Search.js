@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import queryString from "query-string";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +6,6 @@ import { useForm } from "react-hook-form";
 import Footer from "./Footer";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
-import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
@@ -19,7 +17,7 @@ const override = css`
 `;
 
 const Search = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [userID, setUserID] = useState("");
   const [songData, setSongData] = useState("No songs");
   const [initialSong, setInitialSong] = useState("No initial");
@@ -179,6 +177,7 @@ const Search = (props) => {
               href={initialSong.external_urls.spotify}
               alt="open the searched song in spotify"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Song suggestions for {initialSong.name}
             </a>
