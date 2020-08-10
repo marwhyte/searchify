@@ -217,10 +217,19 @@ $bggradient: #0072ff;
     padding-bottom: 1%;
     margin: 1% 1%;
     padding-top: 0.5%;
-    border: 1px solid white;
+    background-color: white;
+    position: relative;
+    border-radius: 7px;
+    transition: all 150ms ease-in-out;
+    box-shadow: 0 10px 26px rgba(100, 110, 140, 0.1),
+      0 2px 4px rgba(100, 110, 140, 0.15);
+    border-bottom: none;
   }
   .playlist:hover {
-    border: 1px solid black;
+    transform: translate3D(0, -1px, 0);
+    box-shadow: 0 8px 22px rgba(100, 110, 140, 0.2),
+      0 5px 18px rgba(100, 110, 140, 0.25);
+    background-color: #fbfdff;
   }
   .playlistLinks {
     margin-top: 5%;
@@ -788,12 +797,12 @@ $bggradient: #0072ff;
 
 @media (max-width: 600px) {
   .home .playlist {
-    padding: 0 !important;
+    padding: 10px !important;
     margin: 1% !important;
     width: 150px !important;
   }
   .home .yourSong {
-    padding: 0 !important;
+    padding: 10px !important;
     margin: 1% !important;
     width: 150px !important;
   }
