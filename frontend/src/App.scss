@@ -7,7 +7,7 @@ $danger: #ff463f;
 $success: #85c910;
 $warning: #ffdc00;
 $info: #00a1ff;
-$bgcolor: #00c6ff;
+$bgcolor: #00b5e7;
 $bggradient: #0072ff;
 .App {
   text-align: center;
@@ -44,7 +44,7 @@ $bggradient: #0072ff;
 .loginButton {
   margin-top: 5%;
   color: white;
-  background-color: $danger;
+  background-color: #001f3f;
   border-radius: 15px;
   padding: 1% 5%;
   width: 125px;
@@ -55,7 +55,7 @@ $bggradient: #0072ff;
   outline: 0;
 }
 .loginButton:hover {
-  background-color: #ff160e;
+  background-color: #001122;
 }
 .loginFooter {
   height: 22vh;
