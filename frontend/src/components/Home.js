@@ -142,7 +142,7 @@ const Home = (props) => {
             style={{ marginLeft: "20px" }}
           />
         </div>
-        <h4>Find Music for You</h4>
+        <h4>Find Music For You</h4>
         <h3>Search by artist or song to find a playlist tailored to you!</h3>
 
         <form
@@ -230,9 +230,9 @@ const Home = (props) => {
                       </div>
                       <h2>{playlist.name}</h2>
                       {playlist.public ? (
-                        <p className="public">public playlist</p>
+                        <p className="public">Public Playlist</p>
                       ) : (
-                        <p className="private">private playlist</p>
+                        <p className="private">Private Playlist</p>
                       )}
                       <div className="playlistLinks">
                         <Link
