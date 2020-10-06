@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
+
+import SongSearch from "./SongSearch";
+import YourMusic from "./YourMusic";
 
 const override = css`
   display: block;
@@ -128,222 +129,18 @@ const Home = (props) => {
 
   return (
     <div className="home">
-      <div className="search">
-        <div className="right">
-          <h2>Welcome {userData.name}</h2>
-          <a href="/">Logout</a>
-        </div>
-        <div className="sameLine">
-          <h1>SEARCHIFY</h1>
-          <FontAwesomeIcon
-            icon={faSearchengin}
-            size="5x"
-            color="white"
-            style={{ marginLeft: "20px" }}
-          />
-        </div>
-        <h4>Find Music For You</h4>
-        <h3>Search by artist or song to find a playlist tailored to you!</h3>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <input
-            type="text"
-            className="songSearch"
-            placeholder="Search A Song!"
-            name="search"
-            onChange={searching}
-          />
-        </form>
-        <div className="searchItems">
-          {searchQuery === "No songs" ? (
-            <div></div>
-          ) : (
-            <div className="searchFlex">
-              {searchQuery.map((song) => (
-                <Link
-                  to={{
-                    pathname: "/search",
-                    search: props.location.search,
-                    searchInfo: song,
-                    userData: userData,
-                  }}
-                  className="link"
-                >
-                  {song.name} by {song.artists[0].name}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="yourMusic">
-        <button
-          className={topic === "playlist" ? "selected" : "notSelected"}
-          onClick={() => setTopic("playlist")}
-        >
-          Playlists
-        </button>
-        <button
-          className={topic === "song" ? "selected" : "notSelected"}
-          onClick={() => setTopic("song")}
-        >
-          Songs
-        </button>
-        <button
-          className={topic === "artist" ? "selected" : "notSelected"}
-          onClick={() => setTopic("artist")}
-        >
-          Artists
-        </button>
-        {topic === "playlist" ? (
-          <div>
-            <h1>Your Top Playlists</h1>
-            <div className="nothing">
-              {!userData.playlists ? (
-                <div className="sweet-loading">
-                  <RingLoader css={override} size={40} color={"#123abc"} />
-                </div>
-              ) : (
-                <div className="playlists">
-                  {userData.playlists.map((playlist) => (
-                    <div className="playlist">
-                      <div className="container1">
-                        <img
-                          className="playlistImage"
-                          onClick={() =>
-                            window.open(
-                              playlist.external_urls.spotify,
-                              "_blank"
-                            )
-                          }
-                          src={
-                            playlist.images.length !== 0
-                              ? playlist.images[0].url
-                              : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-                          }
-                          alt="playlist"
-                        />
-                      </div>
-                      <h2>{playlist.name}</h2>
-                      {playlist.public ? (
-                        <p className="public">Public Playlist</p>
-                      ) : (
-                        <p className="private">Private Playlist</p>
-                      )}
-                      <div className="playlistLinks">
-                        <Link
-                          to={{
-                            pathname: "/playlist",
-                            search: props.location.search,
-                            playlistInfo: playlist,
-                          }}
-                          className="trackURL"
-                        >
-                          View
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ) : topic === "song" ? (
-          <div>
-            <h1>Your Top Songs</h1>
-            <div className="topSongs">
-              {!topTracks ? (
-                <div className="sweet-loading">
-                  <RingLoader css={override} size={40} color={"#123abc"} />
-                </div>
-              ) : (
-                <div className="yourSongs">
-                  {topTracks.map((track) => (
-                    <div className="yourSong">
-                      <img
-                        className="trackImage"
-                        onClick={() =>
-                          window.open(track.external_urls.spotify, "_blank")
-                        }
-                        src={
-                          track.album.images.length !== 0
-                            ? track.album.images[0].url
-                            : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-                        }
-                        alt="track cover"
-                      />
-                      <h2>{track.name}</h2>
-                      <p>
-                        {track.artists
-                          .map((artist) => {
-                            return artist.name;
-                          })
-                          .join(", ")}
-                      </p>
-                      <Link
-                        to={{
-                          pathname: "/search",
-                          search: props.location.search,
-                          searchInfo: track,
-                          userData: userData,
-                        }}
-                        className="trackURL"
-                      >
-                        Searchify
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div>
-            <h1>Your Top Artists</h1>
-
-            {!topArtists ? (
-              <div className="sweet-loading">
-                <RingLoader css={override} size={40} color={"#123abc"} />
-              </div>
-            ) : (
-              <div className="yourSongs">
-                {topArtists.map((artist) => (
-                  <div className="yourSong">
-                    <img
-                      className="trackImage"
-                      onClick={() =>
-                        window.open(artist.external_urls.spotify, "_blank")
-                      }
-                      src={
-                        artist.images.length !== 0
-                          ? artist.images[0].url
-                          : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-                      }
-                      alt="artist"
-                    />
-                    <h2>{artist.name}</h2>
-                    <p>{artist.genres[0]}</p>
-                    <Link
-                      to={{
-                        pathname: "/artist",
-                        search: props.location.search,
-                        artistInfo: artist,
-                      }}
-                      className="trackURL"
-                    >
-                      View
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+      <SongSearch
+        userData={userData}
+        searching={searching}
+        searchQuery={searchQuery}
+      />
+      <YourMusic
+        topic={topic}
+        setTopic={setTopic}
+        userData={userData}
+        topTracks={topTracks}
+        topArtists={topArtists}
+      />
       <div className="explore">
         <div className="exploreTitles">
           <h1>Explore</h1>
