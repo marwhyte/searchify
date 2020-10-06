@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
-import { Link } from "react-router-dom";
 import Footer from "./Footer";
-import { css } from "@emotion/core";
-import RingLoader from "react-spinners/RingLoader";
 
 import SongSearch from "./SongSearch";
 import YourMusic from "./YourMusic";
-
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: blue;
-`;
+import Explore from "./Explore";
 
 const Home = (props) => {
   const [topTracks, setTopTracks] = useState();
@@ -141,132 +133,12 @@ const Home = (props) => {
         topTracks={topTracks}
         topArtists={topArtists}
       />
-      <div className="explore">
-        <div className="exploreTitles">
-          <h1>Explore</h1>
-          <div className="selector">
-            <button
-              className={
-                exploreTopic === "featured"
-                  ? "selectedExplore"
-                  : "notSelectedExplore"
-              }
-              onClick={() => setExploreTopic("featured")}
-            >
-              Featured
-            </button>
-            <button
-              className={
-                exploreTopic === "releases"
-                  ? "selectedExplore"
-                  : "notSelectedExplore"
-              }
-              onClick={() => setExploreTopic("releases")}
-            >
-              New Releases
-            </button>
-          </div>
-          <div className="yourExplore">
-            {exploreTopic === "featured" ? (
-              <div className="yourFeatured">
-                <h2>Featured on Spotify</h2>
-                {!featured ? (
-                  <div className="sweet-loading">
-                    <RingLoader css={override} size={40} color={"#123abc"} />
-                  </div>
-                ) : (
-                  <div className="allFeaturePlaylists">
-                    {featured.items.map((playlist) => (
-                      <div className="feature">
-                        <div className="featureImage">
-                          <img
-                            alt="Top Featured Playlist cover"
-                            src={playlist.images[0].url}
-                            onClick={() =>
-                              window.open(
-                                playlist.external_urls.spotify,
-                                "_blank"
-                              )
-                            }
-                          />
-                        </div>
-                        <div className="featureText">
-                          <h3
-                            onClick={() =>
-                              window.open(
-                                playlist.external_urls.spotify,
-                                "_blank"
-                              )
-                            }
-                          >
-                            {playlist.name}
-                          </h3>
-                          <p>{playlist.description}</p>
-                        </div>
-                        <Link
-                          to={{
-                            pathname: "/playlist",
-                            search: props.location.search,
-                            playlistInfo: playlist,
-                          }}
-                          className="featureButton"
-                        >
-                          View
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="yourReleases">
-                <h2>Top Releases on Spotify</h2>
-                {!newReleases ? (
-                  <div className="sweet-loading">
-                    <RingLoader css={override} size={40} color={"#123abc"} />
-                  </div>
-                ) : (
-                  <div className="allFeaturePlaylists">
-                    {newReleases.items.map((album) => (
-                      <div className="feature">
-                        <div className="featureImage">
-                          <img
-                            alt="Top Featured Playlist cover"
-                            src={album.images[0].url}
-                            onClick={() =>
-                              window.open(album.external_urls.spotify, "_blank")
-                            }
-                          />
-                        </div>
-                        <div className="featureText">
-                          <h3
-                            onClick={() =>
-                              window.open(album.external_urls.spotify, "_blank")
-                            }
-                          >
-                            {album.name}
-                          </h3>
-                          <p>{album.artists.map((e) => e.name).join(", ")}</p>
-                        </div>
-                        <Link
-                          to={{
-                            pathname: "/album",
-                            search: props.location.search,
-                            albumInfo: album,
-                          }}
-                          className="featureButton"
-                        >
-                          View
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <Explore
+        exploreTopic={exploreTopic}
+        setExploreTopic={setExploreTopic}
+        featured={featured}
+        newReleases={newReleases}
+      />
       <Footer />
     </div>
   );
