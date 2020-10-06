@@ -3,7 +3,7 @@ import queryString from "query-string";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
 import ReactNotification from "react-notifications-component";

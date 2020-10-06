@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
-import SongSearch from "./SongSearch";
-import YourMusic from "./YourMusic";
-import Explore from "./Explore";
+import SongSearch from "../components/SongSearch";
+import YourMusic from "../components/YourMusic";
+import Explore from "../components/Explore";
 
 const Home = (props) => {
   const [topTracks, setTopTracks] = useState();

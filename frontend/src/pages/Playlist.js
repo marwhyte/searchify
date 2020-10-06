@@ -3,10 +3,10 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
-import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
+import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
 
 const override = css`
   display: block;
@@ -14,8 +14,8 @@ const override = css`
   border-color: blue;
 `;
 
-const Artist = (props) => {
-  const [artist, setArtist] = useState("NoArtist");
+const Playlist = (props) => {
+  const [playlist, setPlaylist] = useState("NoPlaylists");
   const [songs, setSongs] = useState("noSongs");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -35,11 +35,10 @@ const Artist = (props) => {
         }
       })
       .then((data) => {});
-    if (props.location.artistInfo !== undefined) {
-      localStorage.setItem("artist", props.location.artistInfo.href);
-      const songData = localStorage.getItem("artist");
-
-      fetch(songData + "/top-tracks?country=from_token", {
+    if (props.location.playlistInfo !== undefined) {
+      localStorage.setItem("playlist", props.location.playlistInfo.href);
+      const songData = localStorage.getItem("playlist");
+      fetch(songData + "/tracks", {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -47,7 +46,7 @@ const Artist = (props) => {
         .then((res) => res.json())
         .then((data) => {
           setLoading(false);
-          setSongs(data);
+          setSongs(data.items);
         });
       fetch(songData, {
         headers: {
@@ -56,12 +55,12 @@ const Artist = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setArtist(data);
+          setPlaylist(data);
+          console.log("here", data);
         });
     } else {
-      const songData = localStorage.getItem("artist");
-
-      fetch(songData + "/top-tracks?country=from_token", {
+      const songData = localStorage.getItem("playlist");
+      fetch(`${songData}/tracks`, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
@@ -69,7 +68,7 @@ const Artist = (props) => {
         .then((res) => res.json())
         .then((data) => {
           setLoading(false);
-          setSongs(data);
+          setSongs(data.items);
         });
       fetch(songData, {
         headers: {
@@ -78,14 +77,12 @@ const Artist = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setArtist(data);
-          console.log("artist", data);
+          setPlaylist(data);
+          console.log("here", data);
         });
     }
   }, []);
-  console.log("artist", artist);
-  console.log("toptracks", songs);
-
+  console.log(songs);
   return (
     <div className="playlist">
       <div className="fontawesome">
@@ -97,14 +94,14 @@ const Artist = (props) => {
         />
       </div>
 
-      {songs !== "noSongs" && artist !== "NoArtist" ? (
+      {songs !== "noSongs" && playlist !== "NoPlaylists" ? (
         <div className="playlisttop">
           <div>
-            <h1> Welcome to: {artist.name}</h1>
-            <p>Genre: {artist.genres[0]}</p>
-            <p>Popularity: {artist.popularity}</p>
+            <h1> Welcome to: {playlist.name}</h1>
+            <p>Created by: {playlist.owner.id}</p>
+            <p>Total Songs: {playlist.tracks.total}</p>
             <a
-              href={artist.external_urls.spotify}
+              href={playlist.external_urls.spotify}
               className="playlistURL1"
               target="_blank"
               rel="noopener noreferrer"
@@ -115,14 +112,14 @@ const Artist = (props) => {
           <div className="noMargin">
             <img
               onClick={() =>
-                window.open(artist.external_urls.spotify, "_blank")
+                window.open(playlist.external_urls.spotify, "_blank")
               }
               src={
-                artist.images.length !== 0
-                  ? artist.images[0].url
+                playlist.images.length !== 0
+                  ? playlist.images[0].url
                   : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
               }
-              alt="Artist Cover"
+              alt="4 top songs in the playlist"
             />
           </div>
         </div>
@@ -132,21 +129,21 @@ const Artist = (props) => {
 
       <div className="playlistheaders">
         <p className="playlistheader2">Searchify</p>
-        <p className="playlistheader push">Song Title</p>
+        <p className="playlistheader">Song Title</p>
         <p className="playlistheader">Song Artist</p>
         <p className="playlistheader1">Album</p>
       </div>
       {songs !== "noSongs" ? (
         <div className="playlistsongs">
-          {songs.tracks.map(
+          {songs.map(
             (song) =>
-              song !== null && (
+              song.track !== null && (
                 <div className="playlistsong">
                   <Link
                     to={{
                       pathname: "/search",
                       search: props.location.search,
-                      searchInfo: song,
+                      searchInfo: song.track,
                     }}
                   >
                     <FontAwesomeIcon
@@ -158,29 +155,32 @@ const Artist = (props) => {
                   <div
                     className="song"
                     onClick={() =>
-                      window.open(song.external_urls.spotify, "_blank")
+                      window.open(song.track.external_urls.spotify, "_blank")
                     }
                   >
-                    <p>{song.name}</p>
+                    <p>{song.track.name ? song.track.name : "no song"}</p>
                   </div>
                   <div
                     className="artist"
                     onClick={() =>
                       window.open(
-                        song.artists[0].external_urls.spotify,
+                        song.track.artists[0].external_urls.spotify,
                         "_blank"
                       )
                     }
                   >
-                    <p>{song.artists[0].name}</p>
-                  </div>{" "}
+                    <p>{song.track.artists.map((e) => e.name).join(", ")}</p>
+                  </div>
                   <div
                     className="artist1"
                     onClick={() =>
-                      window.open(song.album.external_urls.spotify, "_blank")
+                      window.open(
+                        song.track.album.external_urls.spotify,
+                        "_blank"
+                      )
                     }
                   >
-                    <p>{song.album.name}</p>
+                    <p>{song.track.album.name}</p>
                   </div>
                 </div>
               )
@@ -201,4 +201,4 @@ const Artist = (props) => {
   );
 };
 
-export default Artist;
+export default Playlist;

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import queryString from "query-string";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
 import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
@@ -14,75 +13,7 @@ const override = css`
   border-color: blue;
 `;
 
-const Album = (props) => {
-  const [album, setAlbum] = useState("NoAlbum");
-  const [songs, setSongs] = useState("noSongs");
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    var parsed = queryString.parse(window.location.search);
-    var accessToken = parsed.access_token;
-    fetch("https://api.spotify.com/v1/me", {
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          return props.history.push("/");
-        } else {
-          return res.json();
-        }
-      })
-      .then((data) => {});
-    if (props.location.albumInfo !== undefined) {
-      localStorage.setItem("album", props.location.albumInfo.href);
-      const songData = localStorage.getItem("album");
-      fetch(songData + "/tracks", {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setLoading(false);
-          setSongs(data.items);
-        });
-      fetch(songData, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setAlbum(data);
-          console.log("here", data);
-        });
-    } else {
-      const songData = localStorage.getItem("album");
-      fetch(`${songData}/tracks`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setLoading(false);
-          setSongs(data.items);
-        });
-      fetch(songData, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setAlbum(data);
-          console.log("here", data);
-        });
-    }
-  }, []);
-  console.log(songs);
+const WholePlaylist = (props) => {
   return (
     <div className="playlist">
       <div className="fontawesome">
@@ -94,14 +25,16 @@ const Album = (props) => {
         />
       </div>
 
-      {songs !== "noSongs" && album !== "NoAlbum" ? (
+      {props.songs !== "noSongs" && props.album !== "NoAlbum" ? (
         <div className="playlisttop">
           <div>
-            <h1> Welcome to: {album.name}</h1>
-            <p>Artists: {album.artists.map((e) => e.name).join(", ")}</p>
-            <p className="marginBottom">Total Songs: {album.total_tracks}</p>
+            <h1> Welcome to: {props.album.name}</h1>
+            <p>Artists: {props.album.artists.map((e) => e.name).join(", ")}</p>
+            <p className="marginBottom">
+              Total Songs: {props.album.total_tracks}
+            </p>
             <a
-              href={album.external_urls.spotify}
+              href={props.album.external_urls.spotify}
               className="playlistURL1"
               target="_blank"
               rel="noopener noreferrer"
@@ -111,10 +44,12 @@ const Album = (props) => {
           </div>
           <div className="noMargin">
             <img
-              onClick={() => window.open(album.external_urls.spotify, "_blank")}
+              onClick={() =>
+                window.open(props.album.external_urls.spotify, "_blank")
+              }
               src={
-                album.images.length !== 0
-                  ? album.images[0].url
+                props.album.images.length !== 0
+                  ? props.album.images[0].url
                   : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
               }
               alt="Album Cover"
@@ -131,9 +66,9 @@ const Album = (props) => {
         <p className="playlistheader">Song Artist</p>
         <p className="playlistheader1">Album</p>
       </div>
-      {songs !== "noSongs" ? (
+      {props.songs !== "noSongs" ? (
         <div className="playlistsongs">
-          {songs.map(
+          {props.songs.map(
             (song) =>
               song !== null && (
                 <div className="playlistsong">
@@ -172,10 +107,10 @@ const Album = (props) => {
                   <div
                     className="artist1"
                     onClick={() =>
-                      window.open(album.external_urls.spotify, "_blank")
+                      window.open(props.album.external_urls.spotify, "_blank")
                     }
                   >
-                    <p>{album.name}</p>
+                    <p>{props.album.name}</p>
                   </div>
                 </div>
               )
@@ -187,7 +122,7 @@ const Album = (props) => {
             css={override}
             size={40}
             color={"#123abc"}
-            loading={loading}
+            loading={props.loading}
           />
         </div>
       )}
@@ -196,4 +131,4 @@ const Album = (props) => {
   );
 };
 
-export default Album;
+export default WholePlaylist;
