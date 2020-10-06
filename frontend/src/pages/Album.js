@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 
-import WholePlaylist from "../components/WholePlaylist";
+import WholeAlbum from "../components/WholeAlbum";
 
 const Album = (props) => {
   const [album, setAlbum] = useState("NoAlbum");
@@ -72,7 +72,7 @@ const Album = (props) => {
     }
   }, []);
   console.log(songs);
-  return <WholePlaylist songs={songs} album={album} loading={loading} />;
+  return <WholeAlbum songs={songs} album={album} loading={loading} />;
 };
 
 export default Album;

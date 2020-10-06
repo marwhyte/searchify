@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
-import Footer from "../components/Footer";
+import Footer from "./Footer";
 import { css } from "@emotion/core";
 import RingLoader from "react-spinners/RingLoader";
 import { faSearchengin } from "@fortawesome/free-brands-svg-icons";
@@ -25,14 +25,16 @@ const WholePlaylist = (props) => {
         />
       </div>
 
-      {props.songs !== "noSongs" && props.playlist !== "NoPlaylists" ? (
+      {props.songs !== "noSongs" && props.album !== "NoAlbum" ? (
         <div className="playlisttop">
           <div>
-            <h1> Welcome to: {props.playlist.name}</h1>
-            <p>Created by: {props.playlist.owner.id}</p>
-            <p>Total Songs: {props.playlist.tracks.total}</p>
+            <h1> Welcome to: {props.album.name}</h1>
+            <p>Artists: {props.album.artists.map((e) => e.name).join(", ")}</p>
+            <p className="marginBottom">
+              Total Songs: {props.album.total_tracks}
+            </p>
             <a
-              href={props.playlist.external_urls.spotify}
+              href={props.album.external_urls.spotify}
               className="playlistURL1"
               target="_blank"
               rel="noopener noreferrer"
@@ -43,19 +45,19 @@ const WholePlaylist = (props) => {
           <div className="noMargin">
             <img
               onClick={() =>
-                window.open(props.playlist.external_urls.spotify, "_blank")
+                window.open(props.album.external_urls.spotify, "_blank")
               }
               src={
-                props.playlist.images.length !== 0
-                  ? props.playlist.images[0].url
+                props.album.images.length !== 0
+                  ? props.album.images[0].url
                   : "https://images.unsplash.com/photo-1573247318234-a388aa0a8b37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
               }
-              alt="4 top songs in the playlist"
+              alt="Album Cover"
             />
           </div>
         </div>
       ) : (
-        <p>playlist unavailable</p>
+        <p>Album unavailable</p>
       )}
 
       <div className="playlistheaders">
@@ -68,13 +70,13 @@ const WholePlaylist = (props) => {
         <div className="playlistsongs">
           {props.songs.map(
             (song) =>
-              song.track !== null && (
+              song !== null && (
                 <div className="playlistsong">
                   <Link
                     to={{
                       pathname: "/search",
                       search: props.location.search,
-                      searchInfo: song.track,
+                      searchInfo: song,
                     }}
                   >
                     <FontAwesomeIcon
@@ -86,32 +88,29 @@ const WholePlaylist = (props) => {
                   <div
                     className="song"
                     onClick={() =>
-                      window.open(song.track.external_urls.spotify, "_blank")
+                      window.open(song.external_urls.spotify, "_blank")
                     }
                   >
-                    <p>{song.track.name ? song.track.name : "no song"}</p>
+                    <p>{song.name ? song.name : "no song"}</p>
                   </div>
                   <div
                     className="artist"
                     onClick={() =>
                       window.open(
-                        song.track.artists[0].external_urls.spotify,
+                        song.artists[0].external_urls.spotify,
                         "_blank"
                       )
                     }
                   >
-                    <p>{song.track.artists.map((e) => e.name).join(", ")}</p>
+                    <p>{song.artists.map((e) => e.name).join(", ")}</p>
                   </div>
                   <div
                     className="artist1"
                     onClick={() =>
-                      window.open(
-                        song.track.album.external_urls.spotify,
-                        "_blank"
-                      )
+                      window.open(props.album.external_urls.spotify, "_blank")
                     }
                   >
-                    <p>{song.track.album.name}</p>
+                    <p>{props.album.name}</p>
                   </div>
                 </div>
               )
