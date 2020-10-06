@@ -134,6 +134,7 @@ const Home = (props) => {
         topArtists={topArtists}
       />
       <Explore
+        location={props.location}
         exploreTopic={exploreTopic}
         setExploreTopic={setExploreTopic}
         featured={featured}
