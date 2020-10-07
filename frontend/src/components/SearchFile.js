@@ -67,7 +67,7 @@ const SearchFile = (props) => {
           className="goBack"
           icon={faArrowAltCircleLeft}
           size="4x"
-          onClick={() => window.open(`/home${props.location.search}`, "_self")}
+          onClick={() => window.open(`/home${window.location.search}`, "_self")}
         />
       </div>
       {props.songData !== "No songs" && props.initialSong !== "No initial" ? (
