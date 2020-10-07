@@ -122,13 +122,11 @@ const Home = (props) => {
   return (
     <div className="home">
       <SongSearch
-        location={props.location}
         userData={userData}
         searching={searching}
         searchQuery={searchQuery}
       />
       <YourMusic
-        location={props.location}
         topic={topic}
         setTopic={setTopic}
         userData={userData}
@@ -136,7 +134,6 @@ const Home = (props) => {
         topArtists={topArtists}
       />
       <Explore
-        location={props.location}
         exploreTopic={exploreTopic}
         setExploreTopic={setExploreTopic}
         featured={featured}

@@ -76,7 +76,7 @@ const Explore = (props) => {
                       <Link
                         to={{
                           pathname: "/playlist",
-                          search: props.location.search,
+                          search: window.location.search,
                           playlistInfo: playlist,
                         }}
                         className="featureButton"
@@ -121,7 +121,7 @@ const Explore = (props) => {
                       <Link
                         to={{
                           pathname: "/album",
-                          search: props.location.search,
+                          search: window.location.search,
                           albumInfo: album,
                         }}
                         className="featureButton"

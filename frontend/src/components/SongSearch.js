@@ -44,7 +44,7 @@ const SongSearch = (props) => {
               <Link
                 to={{
                   pathname: "/search",
-                  search: props.location.search,
+                  search: window.location.search,
                   searchInfo: song,
                   userData: props.userData,
                 }}

@@ -66,7 +66,7 @@ const YourMusic = (props) => {
                       <Link
                         to={{
                           pathname: "/playlist",
-                          search: props.location.search,
+                          search: window.location.search,
                           playlistInfo: playlist,
                         }}
                         className="trackURL"
@@ -115,7 +115,7 @@ const YourMusic = (props) => {
                     <Link
                       to={{
                         pathname: "/search",
-                        search: props.location.search,
+                        search: window.location.search,
                         searchInfo: track,
                         userData: props.userData,
                       }}
@@ -158,7 +158,7 @@ const YourMusic = (props) => {
                   <Link
                     to={{
                       pathname: "/artist",
-                      search: props.location.search,
+                      search: window.location.search,
                       artistInfo: artist,
                     }}
                     className="trackURL"

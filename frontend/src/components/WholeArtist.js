@@ -73,7 +73,7 @@ const WholeArtist = (props) => {
                   <Link
                     to={{
                       pathname: "/search",
-                      search: props.location.search,
+                      search: window.location.search,
                       searchInfo: song,
                     }}
                   >
