@@ -32,4 +32,4 @@ Alternatively see the GitHub documentation on [creating a pull request](https://
 
 ## Contact
 
-If you want to contact me visit [my portfolio](http://marcowhyte.com) or email me at **marcolwhyte@gmail.com**
+If you want to contact me visit [my portfolio](http://marcowhyte.com)
