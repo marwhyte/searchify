@@ -1,4 +1,4 @@
-# [searchify](https://www.searchify.club)
+# Searchify
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/marwhyte/searchify)
 ![GitHub contributors](https://img.shields.io/github/contributors/marwhyte/searchify)
